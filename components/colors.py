@@ -1,0 +1,5 @@
+base_color = "#4153A3"
+disable_buttons = "#535769"
+fine = "#DF3939"
+sidebar = "#292B34"
+book_base = "#EEE8F2"
