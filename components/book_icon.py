@@ -32,9 +32,15 @@ class Book_icon:
         self.is_favourite = favourite
         self.is_reserved = reserved
         self.create_book()
+        self.description()
 
     def create_book(self):
-        self.logo_label = CTkLabel(self.frame,text="",image=self.logo_img)
+        self.logo_label = CTkLabel(self.frame,
+                                   text="",
+                                   image=self.logo_img,
+                                   font=("roboto",12),
+                                   wraplength=160,
+                                   justify="center")
         self.logo_label.place(x=0,y=0)
 
         title = self.title if len(self.title)<=22 else self.title[:20]+".."
@@ -53,7 +59,7 @@ class Book_icon:
 
 
         self.reserve_btn = CTkButton(self.frame,
-                                     text="                Unreserve" if self.is_reserved else "                Reserve",
+                                     text="                Reserved" if self.is_reserved else "                Reserve",
                                      font=("roboto",12,"bold"),
                                      width=180,
                                      height=40,
@@ -105,6 +111,12 @@ class Book_icon:
         
         # / hover effectss....................................
 
+        # description hover effects....
+        self.logo_label.bind("<Enter>",self.show_description)
+        self.logo_label.bind("<Leave>",self.hide_description)
+
+        # / description hover effects....
+
 
 
 
@@ -142,10 +154,32 @@ class Book_icon:
             self.is_reserved = False
         else:
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(17,17)))
-            self.reserve_btn.configure(text="                Unreserve")
+            self.reserve_btn.configure(text="                Reserved")
             self.is_reserved = True
 
+
 # / Click Functions ............
+
+
+
+# Description Functions................
+
+    def description(self,text = "No Description"):
+        self.summary = self.title + "\n\n" + text
+        # for i in range(1,len(text)):
+        #     if i%22 == 0:
+        #         self.summary += text[i] + " -\n- "
+        #     else:
+        #         self.summary += text[i]
+   
+
+    def show_description(self,event):
+        self.logo_label.configure(text = self.summary,image = CTkImage(Image.open("resources/Books/empty book1.png"),size=(180,280)))
+
+    def hide_description(self,event):
+        self.logo_label.configure(text = "",image = self.logo_img)
+
+# / Description Functions..............
 
 
 
