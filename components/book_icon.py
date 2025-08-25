@@ -29,23 +29,19 @@ class Book_icon:
 
     def create_book(self):
         self.logo_label = CTkLabel(self.frame,text="",image=self.logo_img)
-        # self.logo_label.grid(row=0,column=0,padx=0,pady=0,rowspan = 7)
         self.logo_label.place(x=0,y=0)
 
-        self.title_label = CTkLabel(self.frame,text=self.title,font=("roboto",12,"bold"))
-        # self.title_label.grid(row=0,column=1,padx=10,pady=5)
+        title = self.title if len(self.title)<=22 else self.title[:20]+".."
+        self.title_label = CTkLabel(self.frame,text=title,font=("roboto",12,"bold"))
         self.title_label.place(x=200,y=20)
 
         self.author_label = CTkLabel(self.frame,text=f"By : {self.author}",font=("roboto",12))
-        # self.author_label.grid(row=1,column=1,padx=10,pady=5)
         self.author_label.place(x=200,y=60)
 
         self.edition_label = CTkLabel(self.frame,text=f"Edition : {self.edition}",font=("roboto",12))
-        # self.edition_label.grid(row=2,column=1,padx=10,pady=5)
         self.edition_label.place(x=200,y=100)
 
         self.copies_label = CTkLabel(self.frame,text=f"Copies Available : {self.copies}",font=("roboto",12))
-        # self.copies_label.grid(row=3,column=1,padx=10,pady=5)
         self.copies_label.place(x=200,y=140)
 
 
@@ -57,20 +53,23 @@ class Book_icon:
                                      height=40,
                                      corner_radius=0,
                                      fg_color=colors.new_button_color,
-                                    #  image=CTkImage(Image.open("resources/icons/reserve.png"),size=(15,15)),compound="left",
                                      hover_color=colors.new_button_color_hover,
                                      anchor="w",
                                      command=self.reserve_btn_click)
         
-        self.reserve_btn_img = CTkImage(Image.open("resources/icons/unreserve.png" if self.is_reserved else "resources/icons/reserve.png"),size=(17,17))
+        self.reserve_btn_img = CTkImage(Image.open("resources/icons/unreserve2.png" if self.is_reserved else "resources/icons/reserve.png"),size=(17,17))
 
         self.reserve_btn_img_label = CTkLabel(self.frame,image=self.reserve_btn_img,text="",fg_color=colors.new_button_color,bg_color=colors.new_button_color)
 
         self.reserve_btn_img_label.place(x=200,y=185)
-        # self.reserve_btn.grid(row=4,column=1,padx=0,pady=0)
+        
         self.reserve_btn.place(x=180,y=180)
 
-
+        #hover effects.................................
+        self.reserve_btn.bind("<Enter>",self.reserve_btn_hover)
+        self.reserve_btn.bind("<Leave>",self.reserve_btn_unhover)
+        
+        # / hover effectss....................................
 
 
 
@@ -85,7 +84,7 @@ class Book_icon:
                                        anchor="w",
                                        command=self.favourite_btn_click)
         
-        # self.favourite_btn.grid(row=5,column=1,padx=0,pady=0)
+  
         self.favourite_btn_img = CTkImage(Image.open("resources/icons/unfavourite2.png" if self.is_favourite else "resources/icons/favourites.png"),size=(17,17))
 
         self.favourite_btn_img_label = CTkLabel(self.frame,image=self.favourite_btn_img,text="",fg_color=colors.new_button_color,bg_color=colors.new_button_color)
@@ -93,9 +92,34 @@ class Book_icon:
         self.favourite_btn_img_label.place(x=200,y=225)
 
         self.favourite_btn.place(x=180,y=220)
-    
+
+        #hover effects.................................
+        self.favourite_btn.bind("<Enter>",self.favourite_btn_hover)
+        self.favourite_btn.bind("<Leave>",self.favourite_btn_unhover)
+        
+        # / hover effectss....................................
 
 
+
+
+#Hover effects funtions...
+
+    def reserve_btn_hover(self,event):
+        self.reserve_btn_img_label.configure(fg_color = colors.new_button_color_hover,bg_color = colors.new_button_color_hover)
+
+    def reserve_btn_unhover(self,event):
+        self.reserve_btn_img_label.configure(fg_color = colors.new_button_color,bg_color = colors.new_button_color)
+
+    def favourite_btn_hover(self,event):
+        self.favourite_btn_img_label.configure(fg_color = colors.new_button_color_hover,bg_color = colors.new_button_color_hover)
+
+    def favourite_btn_unhover(self,event):
+        self.favourite_btn_img_label.configure(fg_color = colors.new_button_color,bg_color = colors.new_button_color)
+#/ Hover effects functions......
+
+
+
+# Click Functions........
 
     def favourite_btn_click(self):
         if self.is_favourite:
@@ -111,9 +135,15 @@ class Book_icon:
             self.reserve_btn.configure(text="                Reserve")
             self.is_reserved = False
         else:
-            self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unreserve.png"),size=(17,17)))
+            self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(17,17)))
             self.reserve_btn.configure(text="                Unreserve")
             self.is_reserved = True
+
+# / Click Functions ............
+
+
+
+# Placement methods....
     
     def pack(self,padx=0,pady=0):
         self.frame.pack(padx=padx,pady=pady)
@@ -124,6 +154,8 @@ class Book_icon:
 
     def grid(self,row,column,padx=0,pady=0):
         self.frame.grid(row=row,column=column,padx=padx,pady=pady)
+
+# /Placement methods....
 
 if __name__ == "__main__":
     root = CTk(fg_color="#ffffff")
