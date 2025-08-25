@@ -48,6 +48,8 @@ class Book_icon:
         # self.copies_label.grid(row=3,column=1,padx=10,pady=5)
         self.copies_label.place(x=200,y=140)
 
+
+
         self.reserve_btn = CTkButton(self.frame,
                                      text="                Unreserve" if self.is_reserved else "                Reserve",
                                      font=("roboto",12,"bold"),
@@ -59,11 +61,18 @@ class Book_icon:
                                      hover_color=colors.new_button_color_hover,
                                      anchor="w",
                                      command=self.reserve_btn_click)
+        
         self.reserve_btn_img = CTkImage(Image.open("resources/icons/unreserve.png" if self.is_reserved else "resources/icons/reserve.png"),size=(17,17))
+
         self.reserve_btn_img_label = CTkLabel(self.frame,image=self.reserve_btn_img,text="",fg_color=colors.new_button_color,bg_color=colors.new_button_color)
+
         self.reserve_btn_img_label.place(x=200,y=185)
         # self.reserve_btn.grid(row=4,column=1,padx=0,pady=0)
         self.reserve_btn.place(x=180,y=180)
+
+
+
+
 
         self.favourite_btn = CTkButton(self.frame,
                                        text="                Favourites",
@@ -78,11 +87,16 @@ class Book_icon:
         
         # self.favourite_btn.grid(row=5,column=1,padx=0,pady=0)
         self.favourite_btn_img = CTkImage(Image.open("resources/icons/unfavourite2.png" if self.is_favourite else "resources/icons/favourites.png"),size=(17,17))
+
         self.favourite_btn_img_label = CTkLabel(self.frame,image=self.favourite_btn_img,text="",fg_color=colors.new_button_color,bg_color=colors.new_button_color)
+
         self.favourite_btn_img_label.place(x=200,y=225)
 
         self.favourite_btn.place(x=180,y=220)
     
+
+
+
     def favourite_btn_click(self):
         if self.is_favourite:
             self.favourite_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/favourites.png"),size=(17,17)))
@@ -94,9 +108,11 @@ class Book_icon:
     def reserve_btn_click(self):
         if self.is_reserved:
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/reserve.png"),size=(17,17)))
+            self.reserve_btn.configure(text="                Reserve")
             self.is_reserved = False
         else:
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unreserve.png"),size=(17,17)))
+            self.reserve_btn.configure(text="                Unreserve")
             self.is_reserved = True
     
     def pack(self,padx=0,pady=0):
