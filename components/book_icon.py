@@ -166,15 +166,10 @@ class Book_icon:
 
     def description(self,text = "No Description"):
         self.summary = self.title + "\n\n" + text
-        # for i in range(1,len(text)):
-        #     if i%22 == 0:
-        #         self.summary += text[i] + " -\n- "
-        #     else:
-        #         self.summary += text[i]
-   
+
 
     def show_description(self,event):
-        self.logo_label.configure(text = self.summary,image = CTkImage(Image.open("resources/Books/empty book1.png"),size=(180,280)))
+        self.logo_label.configure(text = self.summary,image = CTkImage(Image.open("resources/Books/empty book4.jpg"),size=(180,280)))
 
     def hide_description(self,event):
         self.logo_label.configure(text = "",image = self.logo_img)

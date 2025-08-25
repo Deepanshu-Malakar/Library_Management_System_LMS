@@ -27,6 +27,9 @@ if __name__ == "__main__":
     b2.grid(row=0,column=1,padx=10,pady=10)
 
     b3 = book_icon.Book_icon(root,"resources/Books/home in a hundred places.png","Home in a Hundred Places","Unknown",1,6,favourite=False,reserved=False)
+
+    b3.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
     b3.grid(row=0,column=2,padx=10,pady=10)
 
     root.mainloop()
