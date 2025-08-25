@@ -17,7 +17,13 @@ from PIL import Image
 
 class Book_icon:
     def __init__(self,master:CTkFrame,logo:str,book_name:str,author:str,edition:int,copies_available,favourite:bool,reserved:bool):
-        self.frame = CTkFrame(master=master,width=360,height=280,fg_color=colors.book_base,corner_radius=0)
+        self.frame = CTkFrame(master=master,
+                              width=360,
+                              height=280,
+                              fg_color=colors.book_base,
+                              corner_radius=20,
+                              border_color="#DAD2DF",
+                              border_width=1)
         self.title = book_name
         self.author = author
         self.logo_img = CTkImage(Image.open(logo),size=(180,280))
