@@ -108,6 +108,9 @@ class Book_icon:
         #hover effects.................................
         self.favourite_btn.bind("<Enter>",self.favourite_btn_hover)
         self.favourite_btn.bind("<Leave>",self.favourite_btn_unhover)
+
+        self.frame.bind("<Enter>",self.frame_hover)
+        self.frame.bind("<Leave>",self.frame_unhover)
         
         # / hover effectss....................................
 
@@ -133,6 +136,12 @@ class Book_icon:
 
     def favourite_btn_unhover(self,event):
         self.favourite_btn_img_label.configure(fg_color = colors.new_button_color,bg_color = colors.new_button_color)
+
+    def frame_hover(self,event):
+        self.frame.configure(border_color = "#C0BEC2",border_width=1.5)
+
+    def frame_unhover(self,event):
+        self.frame.configure(border_color = "#DAD2DF",border_width = 1)
 #/ Hover effects functions......
 
 
