@@ -3,16 +3,23 @@ from customtkinter import *
 import pywinstyles
 from components import colors
 from components import book_icon
+from components import status_bar
+from CTkXYFrame import * 
 
 if __name__ == "__main__":
     root = CTk(fg_color="#ffffff")
+    root.geometry('1920x800')
     root.title("Library Management System")
     root.iconbitmap("resources/icons/library icon.ico")
 
     pywinstyles.change_header_color(root,colors.base_color)
 
+    upper_frame = CTkFrame(root,fg_color="transparent",bg_color="transparent",width=1920,height=70,border_color="#C6C6C6",border_width=2,corner_radius=0)
+    upper_frame.pack(padx=0,pady=0)
 
-    b1 = book_icon.Book_icon(root,"resources/Books/dr br ambedkar.jpg","Dr B.R. Ambedkar","Br ambedkar",1,12,favourite=True,reserved=False)
+    page1 = CTkScrollableFrame(root,fg_color="transparent",bg_color="transparent",width=1600,height=900)
+    # page1 = CTkXYFrame(root,fg_color="#ffffff",bg_color="#ffffff",width=1600,height=900)
+    b1 = book_icon.Book_icon(page1,"resources/Books/dr br ambedkar.jpg","Dr B.R. Ambedkar","Br ambedkar",1,12,favourite=True,reserved=False)
 
     b1.description("It reflects the social struggles he faced as a child and student.\nThrough these incidents, Ambedkar exposes the harsh realities of untouchability in India.\nThe book shows his resolve to fight for equality and justice for all")
 
@@ -20,16 +27,99 @@ if __name__ == "__main__":
 
 
 
-    b2 = book_icon.Book_icon(root,"resources/Books/Brief History of time.jpg","Brief History of Time","Stephen Hawkings",2,9,favourite=False,reserved=True)
+    b2 = book_icon.Book_icon(page1,"resources/Books/Brief History of time.jpg","Brief History of Time","Stephen Hawkings",2,9,favourite=False,reserved=True)
 
     b2.description("A Brief History of Time by Stephen Hawking explores the mysteries of the universe in simple language.\nIt explains the Big Bang, black holes, space-time, and the nature of time.\nThe book makes complex physics understandable for general readers.\nIt reflects Hawking’s search for a unified theory and humanity’s place in the cosmos.")
 
     b2.grid(row=0,column=1,padx=10,pady=10)
 
-    b3 = book_icon.Book_icon(root,"resources/Books/home in a hundred places.png","Home in a Hundred Places","Unknown",1,6,favourite=False,reserved=False)
+    b3 = book_icon.Book_icon(page1,"resources/Books/home in a hundred places.png","Home in a Hundred Places","Unknown",1,6,favourite=False,reserved=False)
 
     b3.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
 
     b3.grid(row=0,column=2,padx=10,pady=10)
+
+    b4 = book_icon.Book_icon(page1,"resources/Books/abraham silberschatz operating system.jpg",
+                             "Operating System Concepts","Abraham Silberschatz",1,6,favourite=False,reserved=False)
+
+    b4.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b4.grid(row=0,column=3,padx=10,pady=10)
+
+    b5 = book_icon.Book_icon(page1,"resources/Books/forozon.jpeg",
+                             "Computer Networks","Abraham Silberschatz",1,6,favourite=False,reserved=False)
+
+    b5.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b5.grid(row=1,column=0,padx=10,pady=10)
+
+
+
+    b6 = book_icon.Book_icon(page1,"resources/Books/Jungle Book.jpg",
+                             "Jungle Book","Abraham Silberschatz",1,6,favourite=False,reserved=False)
+
+    b6.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b6.grid(row=1,column=1,padx=10,pady=10)
+
+
+
+    b7 = book_icon.Book_icon(page1,"resources/Books/Life of my Imagination.jpg",
+                             "Life of my Imagination","Rishabh Sharda",1,6,favourite=False,reserved=False)
+
+    b7.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b7.grid(row=1,column=2,padx=10,pady=10)
+
+
+
+    b8 = book_icon.Book_icon(page1,"resources/Books/nirmala.png",
+                             "Nirmalar","Munshi Premchand",1,6,favourite=True,reserved=False)
+
+    b8.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b8.grid(row=1,column=3,padx=10,pady=10)
+
+
+
+    b9 = book_icon.Book_icon(page1,"resources/Books/Theory of everything.jpg",
+                             "Theory of Everything","Stephen Hawkings",1,6,favourite=False,reserved=False)
+
+    b9.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b9.grid(row=2,column=0,padx=10,pady=10)
+
+
+
+    b10 = book_icon.Book_icon(page1,"resources/Books/the invisible man.jpg",
+                             "The invisible Man","H.G. Wells",1,6,favourite=False,reserved=False)
+
+    b10.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b10.grid(row=2,column=1,padx=10,pady=10)
+
+
+
+    b11 = book_icon.Book_icon(page1,"resources/Books/the canterville ghost.jpg",
+                             "the Canterville Ghost","Oliver",1,6,favourite=False,reserved=False)
+
+    b11.description("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places.")
+
+    b11.grid(row=2,column=2,padx=10,pady=10)
+
+
+    b12 = book_icon.Book_icon(page1,logo="resources/Books/harry potter1.jpg",
+                   book_name="Harry Potter and the Philosopher's Stone",
+                   author="J.K. Rowlings",
+                   edition=1,
+                   copies_available=12,
+                   favourite=False,
+                   reserved=False)
+    b12.grid(row=2,column=3,padx=10,pady=10)
+
+    page1.pack()
+
+    status = status_bar.StatusBar(root,username="Deepanshu",reserved_books=1,issued_books=1)
+    status.place(x=0,y=760)
 
     root.mainloop()

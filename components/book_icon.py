@@ -1,5 +1,7 @@
 from customtkinter import *
 from tkinter import *
+# from components import colors as c
+from PIL import Image
 
 class color:
     def __init__(self):
@@ -10,10 +12,12 @@ class color:
         self.book_base = "#EEE8F2"
         self.new_button_color = "#1A2032"
         self.new_button_color_hover = "#090B12"
+        self.book_hover = "#1A2032"
+        self.old_hover = "#C0BEC2"
 
 colors = color()
 set_appearance_mode("light")
-from PIL import Image
+
 
 class Book_icon:
     def __init__(self,master:CTkFrame,logo:str,book_name:str,author:str,edition:int,copies_available,favourite:bool,reserved:bool):
@@ -21,9 +25,9 @@ class Book_icon:
                               width=360,
                               height=280,
                               fg_color=colors.book_base,
-                              corner_radius=20,
-                              border_color="#DAD2DF",
-                              border_width=1)
+                              corner_radius=0,
+                            #   border_color="#DAD2DF",
+                              border_width=0)
         self.title = book_name
         self.author = author
         self.logo_img = CTkImage(Image.open(logo),size=(180,280))
@@ -138,7 +142,7 @@ class Book_icon:
         self.favourite_btn_img_label.configure(fg_color = colors.new_button_color,bg_color = colors.new_button_color)
 
     def frame_hover(self,event):
-        self.frame.configure(border_color = "#C0BEC2",border_width=1.5)
+        self.frame.configure(border_color = colors.base_color,border_width=1.5)
 
     def frame_unhover(self,event):
         self.frame.configure(border_color = "#DAD2DF",border_width = 1)
@@ -191,7 +195,6 @@ class Book_icon:
     
     def pack(self,padx=0,pady=0):
         self.frame.pack(padx=padx,pady=pady)
-    
     
     def place(self,x,y):
         self.frame.place(x=x,y=y)
