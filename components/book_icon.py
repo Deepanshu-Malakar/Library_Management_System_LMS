@@ -9,7 +9,8 @@ class color:
         self.disable_buttons = "#535769"
         self.fine = "#DF3939"
         self.sidebar = "#292B34"
-        self.book_base = "#EEE8F2"
+        # self.book_base = "#EEE8F2"
+        self.book_base = "#ffffff"
         self.new_button_color = "#1A2032"
         self.new_button_color_hover = "#090B12"
         self.book_hover = "#1A2032"
@@ -25,9 +26,9 @@ class Book_icon:
                               width=360,
                               height=280,
                               fg_color=colors.book_base,
-                              corner_radius=0,
-                            #   border_color="#DAD2DF",
-                              border_width=0)
+                              corner_radius=5,
+                              border_color="#DAD2DF",
+                              border_width=1)
         self.title = book_name
         self.author = author
         self.logo_img = CTkImage(Image.open(logo),size=(180,280))
@@ -115,6 +116,17 @@ class Book_icon:
 
         self.frame.bind("<Enter>",self.frame_hover)
         self.frame.bind("<Leave>",self.frame_unhover)
+        self.title_label.bind("<Enter>",self.frame_hover)
+        self.author_label.bind("<Enter>",self.frame_hover)
+        self.copies_label.bind("<Enter>",self.frame_hover)
+        self.edition_label.bind("<Enter>",self.frame_hover)
+        self.logo_label.bind("<Enter>",self.frame_hover)
+        self.logo_label.bind("<Leave>",self.frame_unhover)
+
+        self.favourite_btn.bind("<Enter>",self.frame_hover)
+        self.favourite_btn.bind("<Leave>",self.frame_unhover)
+        self.reserve_btn.bind("<Enter>",self.frame_hover)
+        self.reserve_btn.bind("<Leave>",self.frame_unhover)
         
         # / hover effectss....................................
 

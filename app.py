@@ -4,8 +4,11 @@ import pywinstyles
 from components import colors
 from components import book_icon
 from components import status_bar
+from components import search_bar
 from CTkXYFrame import * 
 
+sidebar_color = "#292B34"
+scroll_fg_color = "#484D5B"
 if __name__ == "__main__":
     root = CTk(fg_color="#ffffff")
     root.geometry('1920x800')
@@ -15,10 +18,27 @@ if __name__ == "__main__":
     pywinstyles.change_header_color(root,colors.base_color)
 
     upper_frame = CTkFrame(root,fg_color="transparent",bg_color="transparent",width=1920,height=70,border_color="#C6C6C6",border_width=2,corner_radius=0)
-    upper_frame.pack(padx=0,pady=0)
+    upper_frame.pack(padx=0,pady=0,side="top")
 
-    page1 = CTkScrollableFrame(root,fg_color="transparent",bg_color="transparent",width=1600,height=900)
-    # page1 = CTkXYFrame(root,fg_color="#ffffff",bg_color="#ffffff",width=1600,height=900)
+    # page1 = CTkScrollableFrame(root,fg_color="transparent",bg_color="transparent",width=1600,height=900)
+    sidebar = CTkFrame(root,fg_color=sidebar_color,width=300,corner_radius=0)
+    sidebar.pack(padx=0,pady=0,side="left",fill="y")
+
+    upper_frame2 = CTkFrame(root,fg_color="transparent",bg_color="transparent",width=1920,height=70,border_color="#C6C6C6",border_width=0,corner_radius=0)
+    upper_frame2.pack(padx=0,pady=0,side="top",fill="x")
+
+    search_bar_frame = search_bar.SearchBar(upper_frame2)
+    search_bar_frame.pack(padx=10,pady=5,side="right")
+
+    page1 = CTkXYFrame(root,
+                       fg_color="#ffffff",
+                       bg_color="#ffffff",
+                       width=1920,
+                       height=920,
+                       scrollbar_width=12,
+                       scrollbar_fg_color=scroll_fg_color,
+                       scrollbar_button_color="#ffffff")
+    page1.vsb.configure(fg_color = "#ffffff")
     b1 = book_icon.Book_icon(page1,"resources/Books/dr br ambedkar.jpg","Dr B.R. Ambedkar","Br ambedkar",1,12,favourite=True,reserved=False)
 
     b1.description("It reflects the social struggles he faced as a child and student.\nThrough these incidents, Ambedkar exposes the harsh realities of untouchability in India.\nThe book shows his resolve to fight for equality and justice for all")
@@ -117,9 +137,15 @@ if __name__ == "__main__":
                    reserved=False)
     b12.grid(row=2,column=3,padx=10,pady=10)
 
-    page1.pack()
+    page1.pack(padx=0,pady=0)
 
     status = status_bar.StatusBar(root,username="Deepanshu",reserved_books=1,issued_books=1)
-    status.place(x=0,y=760)
+    status.place(x=0,y=743)
+
+    design_Label = CTkLabel(root,fg_color="#1a2032",bg_color="#1a2032",width=305,height=5)
+    pywinstyles.set_opacity(design_Label,0.8)
+    design_Label.place(x=0,y=781)
+
+
 
     root.mainloop()
