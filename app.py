@@ -5,6 +5,7 @@ from components import colors
 from components import book_icon
 from components import status_bar
 from components import search_bar
+from components import sidebar_buttons
 from CTkXYFrame import * 
 
 sidebar_color = "#292B34"
@@ -21,8 +22,56 @@ if __name__ == "__main__":
     upper_frame.pack(padx=0,pady=0,side="top")
 
     # page1 = CTkScrollableFrame(root,fg_color="transparent",bg_color="transparent",width=1600,height=900)
+
+# sidebar ...................................................................
     sidebar = CTkFrame(root,fg_color=sidebar_color,width=300,corner_radius=0)
+
+    none_btn = CTkFrame(sidebar,fg_color="transparent",bg_color="transparent",height=60)
+    # none_btn.grid(row=0,column=0,padx=0,pady=0)
+
+    home_btn = sidebar_buttons.SidebarButtons(sidebar,
+                                              text="Home",
+                                              img_active="resources/icons/HomeDark.png",
+                                              img_inactive="resources/icons/HomeLight.png",
+                                              is_active=True)
+    home_btn.grid(row=1,column=0,padx=0,pady=0)
+
+    favourites_btn = sidebar_buttons.SidebarButtons(sidebar,
+                                              text="Favourites",
+                                              img_active="resources/icons/FavouritesDark.png",
+                                              img_inactive="resources/icons/FavouritesLight.png",
+                                              is_active=False)
+    favourites_btn.grid(row=2,column=0,padx=0,pady=10)
+
+
+    history_btn = sidebar_buttons.SidebarButtons(sidebar,
+                                              text="History",
+                                              img_active="resources/icons/HistoryDark.png",
+                                              img_inactive="resources/icons/HistoryLight.png",
+                                              is_active=False)
+    history_btn.grid(row=3,column=0,padx=0,pady=10)
+
+
+    study_section_btn = sidebar_buttons.SidebarButtons(sidebar,
+                                              text="Study Section",
+                                              img_active="resources/icons/StudyDark.png",
+                                              img_inactive="resources/icons/StudyLight.png",
+                                              is_active=False)
+    study_section_btn.grid(row=4,column=0,padx=0,pady=10)
+
+
+
+    reserved_books_btn = sidebar_buttons.SidebarButtons(sidebar,
+                                              text="Reserved Books",
+                                              img_active="resources/icons/ReservedDark.png",
+                                              img_inactive="resources/icons/ReservedLight.png",
+                                              is_active=False)
+    reserved_books_btn.grid(row=5,column=0,padx=0,pady=10)
+
+
     sidebar.pack(padx=0,pady=0,side="left",fill="y")
+
+# / sidebar .................................................................
 
     upper_frame2 = CTkFrame(root,fg_color="transparent",bg_color="transparent",width=1920,height=70,border_color="#C6C6C6",border_width=0,corner_radius=0)
     upper_frame2.pack(padx=0,pady=0,side="top",fill="x")
