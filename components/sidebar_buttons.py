@@ -32,7 +32,8 @@ class SidebarButtons:
                               bg_color=colors.book_base if self.is_active else colors.sidebar,
                               width=200,
                               height=100,
-                              border_width=0)
+                              border_width=0,
+                              corner_radius=0)
         
         self.image = CTkImage(Image.open(self.img_active if self.is_active else self.img_inactive),size=(24,24))
 
@@ -96,6 +97,12 @@ class SidebarButtons:
         # self.image_label.bind("<Button-1>",self.click)
         pass
 
+    def unselect(self):
+        self.frame.configure(fg_color = colors.sidebar,bg_color = colors.sidebar)
+        self.button.configure(text_color = colors.book_base)
+        self.image_label.configure(image=CTkImage(Image.open(self.img_inactive),size=(24,24)))
+        self.is_active = False
+
     def click(self):
         print(self.text+" pressed ")
         if self.is_active:
@@ -118,6 +125,9 @@ class SidebarButtons:
 
     def grid(self,row,column,padx=0,pady=0):
         self.frame.grid(row=row,column=column,padx=padx,pady=pady)
+   
+    def grid_forget(self):
+        self.frame.grid_forget()
     # / placement methods.........
 
 

@@ -14,7 +14,7 @@ class SearchBar:
         self.frame = CTkFrame(master,
                               fg_color="transparent",
                               border_width=2,
-                              border_color=colors.book_base)
+                              border_color=colors.book_base_old)
         
         self.search_options_img = CTkImage(Image.open("resources/icons/search options.png"),size=(32,32))
         self.search_options_btn = CTkButton(self.frame,
@@ -22,7 +22,7 @@ class SearchBar:
                                              image=self.search_options_img,
                                              fg_color="transparent",
                                              bg_color="transparent",
-                                             hover_color=colors.book_base,
+                                             hover_color=colors.book_base_old,
                                              width=20,
                                              command=self.options_btn_click)
         self.search_options_btn.grid(row=0,column=0,padx=5,pady=5)
@@ -32,7 +32,8 @@ class SearchBar:
                               border_color="#ffffff",
                               fg_color="transparent",
                               bg_color="transparent",
-                              width=200)
+                              width=200,
+                              font=("roboto",12))
         self.entry.grid(row=0,column=1,padx=0,pady=5)
 
         self.search_btn_img = CTkImage(Image.open("resources/icons/search icon.png"),size=(32,32))
@@ -41,7 +42,7 @@ class SearchBar:
                                              image=self.search_btn_img,
                                              fg_color="transparent",
                                              bg_color="transparent",
-                                             hover_color=colors.book_base,
+                                             hover_color=colors.book_base_old,
                                              width=20,
                                              command=self.search_btn_click)
         self.search_btn.grid(row=0,column=2,padx=5,pady=5)

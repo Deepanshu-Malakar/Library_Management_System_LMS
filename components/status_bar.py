@@ -39,35 +39,40 @@ class StatusBar:
                                        text= self.username,
                                        fg_color="transparent",
                                        bg_color="transparent",
-                                       text_color="white")
+                                       text_color="white",
+                                       font=("roboto",12,"bold"))
         self.username_label.pack(padx=30,pady=5,side="left")
 
         self.issued_books_label = CTkLabel(self.frame ,
                                        text= f"Books Issued = {self.issued_books}",
                                        fg_color="transparent",
                                        bg_color="transparent",
-                                       text_color="white")
+                                       text_color="white",
+                                       font=("roboto",12,"bold"))
         self.issued_books_label.pack(padx=30,pady=5,side="left")
 
         self.reserved_books_label = CTkLabel(self.frame ,
                                        text= f"Books Reserved = {self.reserved_books}",
                                        fg_color="transparent",
                                        bg_color="transparent",
-                                       text_color="white")
+                                       text_color="white",
+                                       font=("roboto",12,"bold"))
         self.reserved_books_label.pack(padx=30,pady=5,side="left")
 
         self.outstanding_fines_label = CTkLabel(self.frame ,
                                        text= f"Outstanding Fines = {self.outstandingfines}",
                                        fg_color="transparent",
                                        bg_color="transparent",
-                                       text_color="white")
+                                       text_color="white",
+                                       font=("roboto",12,"bold"))
         self.outstanding_fines_label.pack(padx=30,pady=5,side="left")
 
         self.due_books_label = CTkLabel(self.frame ,
                                        text= f"Due Books = {self.due_books}",
                                        fg_color="transparent",
                                        bg_color="transparent",
-                                       text_color="white")
+                                       text_color="white",
+                                       font=("roboto",12,"bold"))
         self.due_books_label.pack(padx=30,pady=5,side="left")
 
         self.credits_label = CTkLabel(self.frame ,
@@ -76,7 +81,8 @@ class StatusBar:
                                        bg_color="transparent",
                                        text_color="white",
                                        width=700,
-                                       justify = "right")
+                                       justify = "right",
+                                       font=("roboto",12,"bold"))
         self.credits_label.pack(padx=30,pady=5,side="right")
 
 

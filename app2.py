@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image
 from customtkinter import *
 import pywinstyles
 from components import colors
@@ -8,21 +9,50 @@ from components import search_bar
 from components import sidebar_buttons
 from components import sidebar
 from CTkXYFrame import * 
-
+from components import navbar_butttons
 sidebar_color = "#292B34"
 scroll_fg_color = "#484D5B"
 if __name__ == "__main__":
     root = CTk(fg_color="#ffffff")
     root.geometry('1920x800')
     root.state("zoomed")
-    root.title("Library Management System")
+    root.title("Your Personal Library")
     root.iconbitmap("resources/icons/library icon.ico")
 
     pywinstyles.change_header_color(root,colors.base_color)
 
-    upper_frame = CTkFrame(root,fg_color="transparent",bg_color="transparent",width=1920,height=70,border_color="#C6C6C6",border_width=2,corner_radius=0)
-    upper_frame.pack(padx=0,pady=0,side="top",fill="x")
+    upper_frame = CTkFrame(root,
+                           fg_color=colors.navbar,
+                           bg_color=colors.navbar,
+                           width=1920,
+                           height=70,
+                           border_color="#C6C6C6",
+                           border_width=2,
+                           corner_radius=0)
+    
+# Navbar ......................................................
+    
+    navbar_buttons_frame = CTkFrame(upper_frame,
+                                    fg_color="transparent",
+                                    bg_color="transparent")
+    
 
+    profile = navbar_butttons.NavbarButtons(navbar_buttons_frame,"resources/icons/profile.png")
+    profile.pack(side="right",padx=10,pady=0)
+
+    settings = navbar_butttons.NavbarButtons(navbar_buttons_frame,"resources/icons/settings.png")
+    settings.pack(side="right",padx=10,pady=0)
+
+
+    notifications = navbar_butttons.NavbarButtons(navbar_buttons_frame,"resources/icons/notifications.png")
+    notifications.pack(side="right",padx=10,pady=0)
+
+    navbar_buttons_frame.pack(side="right",padx=0,pady=5)
+
+# / Navbar................................................................
+
+
+    upper_frame.pack(padx=0,pady=0,side="top",fill="x")
     # page1 = CTkScrollableFrame(root,fg_color="transparent",bg_color="transparent",width=1600,height=900)
 
 # sidebar ...................................................................
@@ -30,6 +60,12 @@ if __name__ == "__main__":
     sidebar_frame = sidebar.SideBar(root) 
     sidebar_control = sidebar.Sidebar_control(upper_frame,sidebar=sidebar_frame)
     sidebar_control.pack(side="left",padx=0,pady=2)
+
+    your_personal_lib_img = CTkImage(Image.open("resources/icons/your personal library logo3.png"),size=(240,60))
+    your_personal_lib_label = CTkLabel(upper_frame,text="",image=your_personal_lib_img)
+    your_personal_lib_label.pack(side="left",padx=100,pady=2)
+
+
 
 # / sidebar .................................................................
 
@@ -39,16 +75,13 @@ if __name__ == "__main__":
     search_bar_frame = search_bar.SearchBar(upper_frame2)
     search_bar_frame.pack(padx=10,pady=5,side="right")
 
-    page1 = CTkXYFrame(root,
+    page1 = CTkScrollableFrame(root,
                        fg_color="#ffffff",
                        bg_color="#ffffff",
                        width=1920,
                        height=920,
-                       scrollbar_width=12,
-                       scrollbar_fg_color=scroll_fg_color,
                        scrollbar_button_color="#ffffff")
-    
-    page1.vsb.configure(fg_color = "#ffffff")
+
     b1 = book_icon.Book_icon(page1,"resources/Books/dr br ambedkar.jpg","Dr B.R. Ambedkar","Br ambedkar",1,12,favourite=True,reserved=False)
 
     b1.description("It reflects the social struggles he faced as a child and student.\nThrough these incidents, Ambedkar exposes the harsh realities of untouchability in India.\nThe book shows his resolve to fight for equality and justice for all")
@@ -150,11 +183,11 @@ if __name__ == "__main__":
     page1.pack(padx=0,pady=0)
 
     status = status_bar.StatusBar(root,username="Deepanshu",reserved_books=1,issued_books=1)
-    status.place(x=0,y=743)
+    status.place(x=0,y=755)
 
-    design_Label = CTkLabel(root,fg_color="#1a2032",bg_color="#1a2032",width=200,height=5)
-    pywinstyles.set_opacity(design_Label,0.8)
-    design_Label.place(x=0,y=781)
+    # design_Label = CTkLabel(root,fg_color="#1a2032",bg_color="#1a2032",width=200,height=5)
+    # pywinstyles.set_opacity(design_Label,0.8)
+    # design_Label.place(x=0,y=781)
 
 
 
