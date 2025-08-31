@@ -11,6 +11,7 @@ from components import sidebar
 from CTkXYFrame import * 
 from components import navbar_butttons
 from components import navbar_tabs
+from components import category_folders
 
 
 
@@ -34,6 +35,8 @@ if __name__ == "__main__":
                            border_color=colors.book_base_old, 
                            border_width=2,
                            corner_radius=0)
+    
+
     
 # Navbar ......................................................
     
@@ -102,6 +105,17 @@ if __name__ == "__main__":
 
     search_bar_frame = search_bar.SearchBar(upper_frame2)
     search_bar_frame.pack(padx=10,pady=5,side="right")
+
+# Folder bar.................................................
+    folder_bar = category_folders.FolderBar(upper_frame2)
+    folder_bar.pack(side="left",padx=10)
+
+
+    folder_bar.add_category("All",True)
+    folder_bar.add_category("Physics",False)
+    folder_bar.add_category("Chemistry",False)
+    folder_bar.add_category("Data Science",False)
+# / Folder bar.....................................................
 
     page1 = CTkScrollableFrame(root,
                        fg_color="#ffffff",

@@ -12,3 +12,7 @@ new_button_color = "#1A2032"
 new_button_color_hover = "#090B12"
 book_hover = "#1A2032"
 old_hover = "#C0BEC2"
+
+
+folder_bg = "#C7CEE9"
+folder_filled = "#5165AA"
