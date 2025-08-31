@@ -4,6 +4,7 @@ fine = "#DF3939"
 sidebar = "#292B34"
 book_base_old = "#EEE8F2"
 navbar = "#FFFFFF"
+navbar_hover = "#ECF3FE"
 
 # self.book_base = "#EEE8F2"
 book_base = "#ffffff"

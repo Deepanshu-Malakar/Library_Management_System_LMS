@@ -10,6 +10,10 @@ from components import sidebar_buttons
 from components import sidebar
 from CTkXYFrame import * 
 from components import navbar_butttons
+from components import navbar_tabs
+
+
+
 sidebar_color = "#292B34"
 scroll_fg_color = "#484D5B"
 if __name__ == "__main__":
@@ -26,7 +30,8 @@ if __name__ == "__main__":
                            bg_color=colors.navbar,
                            width=1920,
                            height=70,
-                           border_color="#C6C6C6",
+                        #    border_color="#C6C6C6",
+                           border_color=colors.book_base_old, 
                            border_width=2,
                            corner_radius=0)
     
@@ -48,6 +53,29 @@ if __name__ == "__main__":
     notifications.pack(side="right",padx=10,pady=0)
 
     navbar_buttons_frame.pack(side="right",padx=0,pady=5)
+
+
+
+
+
+    navebar_tabs_frame = CTkFrame(upper_frame,
+                            fg_color="transparent",
+                            bg_color="transparent",
+                            height=20)
+    
+    explore_tab = navbar_tabs.NavbarTabs(navebar_tabs_frame,"Explore",is_active=True)
+    explore_tab.grid(row=0,column=0,padx=0,pady=0)
+
+    Donate_tab = navbar_tabs.NavbarTabs(navebar_tabs_frame,"Donate Book",is_active=False)
+    Donate_tab.grid(row=0,column=1,padx=0,pady=0)
+
+    Help_tab = navbar_tabs.NavbarTabs(navebar_tabs_frame,"Help & Support",is_active=False)
+    Help_tab.grid(row=0,column=2,padx=0,pady=0)
+
+    Doubt_tab = navbar_tabs.NavbarTabs(navebar_tabs_frame,"Doubt Section",is_active=False)
+    Doubt_tab.grid(row=0,column=3,padx=0,pady=0)
+
+    navebar_tabs_frame.pack(side="right",padx=20,pady=0)
 
 # / Navbar................................................................
 
