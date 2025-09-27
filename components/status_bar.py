@@ -35,6 +35,7 @@ class StatusBar:
                               height=30)
         pywinstyles.set_opacity(self.frame,0.8)
 
+
         self.username_label = CTkLabel(self.frame ,
                                        text= self.username,
                                        fg_color="transparent",

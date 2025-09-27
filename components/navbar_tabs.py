@@ -55,4 +55,18 @@ class NavbarTabs:
         self.frame.configure(fg_color = colors.book_base_old,bg_color = colors.book_base)
     def unhover(self,event):
         self.frame.configure(fg_color = "transparent",bg_color = "transparent")
+
 # / Hover effects.............
+
+
+# Click Effects...................
+    def unselect(self):
+        self.is_active = False
+        self.button.configure(text_color = colors.sidebar)
+        self.underline.configure(text_color = colors.book_base)
+
+    def click(self):
+        self.is_active = True
+        self.button.configure(text_color = colors.base_color)
+        self.underline.configure(text_color = colors.base_color)
+# / Click Effects....................
