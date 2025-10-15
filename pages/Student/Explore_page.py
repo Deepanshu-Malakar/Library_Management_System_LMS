@@ -22,7 +22,13 @@ class Page:
         self.sidebar_control.button.bind("<Button-1>",self.sidebar_toggle)
     
     def sidebar_toggle(self,e):
-        pass
+        if self.sidebar.is_expanded:
+            self.sidebar.collapse()
+            self.sidebar.is_expanded = False
+
+        elif not self.sidebar.is_expanded:
+            self.sidebar.expand()
+            self.sidebar.is_expanded = True
     # /Working on sidebar..............................................
 
 
