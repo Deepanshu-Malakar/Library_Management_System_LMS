@@ -1,7 +1,9 @@
 from customtkinter import *
 from tkinter import *
 from PIL import Image
-from pages import signin_page
+# from pages import _page
+from pages import Signin_page
+from pages import Student_Signup_Page
 import pywinstyles
 set_appearance_mode("light")
 
@@ -45,7 +47,7 @@ class RoleButtons:
                               corner_radius=0,
                               width=288,
                               height=70)
-        # pywinstyles.set_opacity(self.frame,0.9)
+        pywinstyles.set_opacity(self.frame,0.9)
 
         self.button = CTkButton(self.frame,
                                 text=text,
@@ -59,7 +61,7 @@ class RoleButtons:
         
         self.button.place(x=22,y=18)
 
-        self.check_img = 'resources/icons/'+ ('unreserve2.png' if self.is_active else 'reserve.png')
+        self.check_img = 'resources/icons/'+ ('unreserve.png' if self.is_active else 'reserve.png')
         self.check_label = CTkLabel(self.frame,
                                     text="",
                                     image=CTkImage(Image.open(self.check_img),size=(30,30))
@@ -174,29 +176,30 @@ class Welcome_page:
     # Click functions .........................
     def login(self):
         self.frame.pack_forget()
-        self.frame = signin_page.Signin_page(self.master)
+        self.frame = Signin_page.Signup(self.master,self.role)
         self.frame.pack()
-        self.master.resizable(True,True)
+        pywinstyles.change_header_color(self.master,Signin_page.colors().purple)
+        # self.master.resizable(True,True)
 
     def student_role(self):
         self.role = "Student"
         self.uncheck_all_roles()
-        self.student_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(30,30)))
+        self.student_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve.png"),size=(30,30)))
 
     def librarian_role(self):
         self.role = "Librarian"
         self.uncheck_all_roles()
-        self.librarian_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(30,30)))
+        self.librarian_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve.png"),size=(30,30)))
 
     def faculty_role(self):
         self.role = "Faculty"
         self.uncheck_all_roles()
-        self.faculty_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(30,30)))
+        self.faculty_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve.png"),size=(30,30)))
 
     def scholar_role(self):
         self.role = "Scholar"
         self.uncheck_all_roles()
-        self.scholar_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(30,30)))
+        self.scholar_role_btn.check_label.configure(image = CTkImage(Image.open("resources/icons/unreserve.png"),size=(30,30)))
 
 
     def uncheck_all_roles(self):
@@ -207,7 +210,10 @@ class Welcome_page:
         print(self.role)
 
     def signup(self):
-        pass
+        if self.role.lower() == "student":
+            self.frame.pack_forget()
+            self.frame = Student_Signup_Page.StudentSignup(self.master)
+            self.frame.pack()
     # // Click functions .........................
 
 if __name__ == "__main__":

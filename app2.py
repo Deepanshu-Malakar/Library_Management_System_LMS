@@ -232,6 +232,6 @@ if __name__ == "__main__":
     # design_Label.place(x=0,y=781)
 
 
-
+    print(len("Home in a Hundred Places is a reflective book that explores the meaning of belonging, identity, and the search for home across diverse landscapes.\nThrough vivid storytelling and personal experiences, the author weaves together journeys of displacement, adaptation, and rootedness.\nIt highlights how home is not just a physical space but an emotional and cultural connection found in many places."))
     root.mainloop()
     
