@@ -2,11 +2,11 @@ from tkinter import *
 from customtkinter import *
 from PIL import Image
 
-class HistoryPage:
+class SolvedByMePage:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(self.master,
-                              fg_color="#e1d892",
+                              fg_color="#0fa05a",
                               bg_color="#ffffff")
     
     def pack(self,padx=0,pady=0):

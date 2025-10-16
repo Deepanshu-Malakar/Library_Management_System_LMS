@@ -7,6 +7,7 @@ from components import sidebar_control_button
 from CTkXYFrame import * 
 from components import navbar_butttons
 from components import navbar_tabs
+from components import status_bar
 
 
 from pages.Student import Explore_page
@@ -62,6 +63,7 @@ class Student_Dashboard:
                             corner_radius=0)
         self.upper_frame.pack(padx=0,pady=0,side="top",fill="x")   
         self.create_navbar()
+        self.create_status_bar()
         self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
         self.page_frame.pack()
             
@@ -124,6 +126,9 @@ class Student_Dashboard:
         
         self.your_personal_lib_label.pack(side="left",padx=100,pady=2)
 
+    def create_status_bar(self):
+        self.status_bar = status_bar.StatusBar(self.frame,self.username,0,0,0,0)
+        self.status_bar.pack()
 #tabs switch functions.....................
     def apply_click_functions(self):
         self.explore_tab.frame.bind("<Button-1>",self.open_explore_tab)

@@ -5,6 +5,9 @@ import pywinstyles
 class color:
     def __init__(self):
         self.base_color = "#4153A3"
+        self.base_color2 = "#7477DD"
+        self.dark_base = "#1A2032"
+        self.dark_base2 = "#3D3E43"
         self.disable_buttons = "#535769"
         self.fine = "#DF3939"
         self.sidebar = "#292B34"
@@ -29,11 +32,12 @@ class StatusBar:
         
     def create_status_bar(self):
         self.frame = CTkFrame(self.master,
-                              fg_color=colors.new_button_color,
-                              bg_color=colors.new_button_color,
+                              fg_color=colors.base_color,
+                              bg_color=colors.base_color,
                               width=1920,
                               height=30)
-        pywinstyles.set_opacity(self.frame,0.8)
+        # pywinstyles.set_opacity(self.frame,0.8)
+
 
 
         self.username_label = CTkLabel(self.frame ,
@@ -85,6 +89,16 @@ class StatusBar:
                                        justify = "right",
                                        font=("roboto",12,"bold"))
         self.credits_label.pack(padx=30,pady=5,side="right")
+
+        self.design_frame = CTkFrame(self.frame,
+                                     fg_color=colors.base_color2,
+                                     bg_color=colors.base_color2,
+                                     height=17,
+                                     width=4000)
+        self.design_frame.place(x=0,y=0)
+        pywinstyles.set_opacity(self.design_frame,0.3)
+
+
 
 
 

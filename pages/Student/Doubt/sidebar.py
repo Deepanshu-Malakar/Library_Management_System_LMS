@@ -21,45 +21,51 @@ class SideBar:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(master,fg_color=colors.sidebar,width=300,corner_radius=0)
+        self.button_width = 110
 
-        self.home_btn = sidebar_buttons.SidebarButtons(self.frame,
-                                                text="Home",
-                                                img_active="resources/icons/HomeDark.png",
-                                                img_inactive="resources/icons/HomeLight.png",
+        self.all_doubts_btn = sidebar_buttons.SidebarButtons(self.frame,
+                                                text="All Doubts",
+                                                img_active="resources/icons/all doubts dark.png",
+                                                img_inactive="resources/icons/all doubts light.png",
                                                 is_active=True)
-        self.home_btn.grid(row=1,column=0,padx=0,pady=0)
+        self.all_doubts_btn.grid(row=1,column=0,padx=0,pady=0)
+        self.all_doubts_btn.button.configure(width=self.button_width)
 
-        self.favourites_btn = sidebar_buttons.SidebarButtons(self.frame,
-                                                text="Favourites",
-                                                img_active="resources/icons/FavouritesDark.png",
-                                                img_inactive="resources/icons/FavouritesLight.png",
+        self.my_doubts_btn = sidebar_buttons.SidebarButtons(self.frame,
+                                                text="My Doubts",
+                                                img_active="resources/icons/my doubts dark.png",
+                                                img_inactive="resources/icons/my doubts light.png",
                                                 is_active=False)
-        self.favourites_btn.grid(row=2,column=0,padx=0,pady=10)
+        self.my_doubts_btn.grid(row=2,column=0,padx=0,pady=10)
+        self.my_doubts_btn.button.configure(width=self.button_width)
 
 
-        self.history_btn = sidebar_buttons.SidebarButtons(self.frame,
-                                                text="History",
-                                                img_active="resources/icons/HistoryDark.png",
-                                                img_inactive="resources/icons/HistoryLight.png",
+        self.solved_by_me_btn = sidebar_buttons.SidebarButtons(self.frame,
+                                                text="Solved by Me",
+                                                img_active="resources/icons/solved by me dark.png",
+                                                img_inactive="resources/icons/solved by me light.png",
                                                 is_active=False)
-        self.history_btn.grid(row=3,column=0,padx=0,pady=0)
+        self.solved_by_me_btn.grid(row=3,column=0,padx=0,pady=0)
+        self.solved_by_me_btn.button.configure(width=self.button_width)
 
 
-        self.study_section_btn = sidebar_buttons.SidebarButtons(self.frame,
-                                                text="Study Section",
-                                                img_active="resources/icons/StudyDark.png",
-                                                img_inactive="resources/icons/StudyLight.png",
+        self.ask_doubt_btn = sidebar_buttons.SidebarButtons(self.frame,
+                                                text="Ask Doubt",
+                                                img_active="resources/icons/ask doubt dark.png",
+                                                img_inactive="resources/icons/ask doubt light.png",
                                                 is_active=False)
-        self.study_section_btn.grid(row=4,column=0,padx=0,pady=10)
+        self.ask_doubt_btn.grid(row=4,column=0,padx=0,pady=10)
+        self.ask_doubt_btn.button.configure(width=self.button_width)
 
 
 
-        self.reserved_books_btn = sidebar_buttons.SidebarButtons(self.frame,
-                                                text="Reserved Books",
-                                                img_active="resources/icons/ReservedDark.png",
-                                                img_inactive="resources/icons/ReservedLight.png",
+        self.leaderboard_btn = sidebar_buttons.SidebarButtons(self.frame,
+                                                text="Leaderboard",
+                                                img_active="resources/icons/leaderboard dark.png",
+                                                img_inactive="resources/icons/leaderboard light.png",
                                                 is_active=False)
-        self.reserved_books_btn.grid(row=5,column=0,padx=0,pady=0)
+        self.leaderboard_btn.grid(row=5,column=0,padx=0,pady=0)
+        self.leaderboard_btn.button.configure(width=self.button_width)
 
 
 
@@ -74,38 +80,38 @@ class SideBar:
 
 # Click Functions...............
     def apply_click_functions(self):
-        self.home_btn.button.configure(command = self.home_btn_click)
-        self.favourites_btn.button.configure(command = self.favourite_btn_click)
-        self.history_btn.button.configure(command = self.history_btn_click)
-        self.reserved_books_btn.button.configure(command = self.reserve_btn_click)
-        self.study_section_btn.button.configure(command = self.study_btn_click)
+        self.all_doubts_btn.button.configure(command = self.all_doubts_btn_click)
+        self.my_doubts_btn.button.configure(command = self.my_doubts_btn_click)
+        self.solved_by_me_btn.button.configure(command = self.solved_by_me_btn_click)
+        self.ask_doubt_btn.button.configure(command = self.ask_doubt_btn_click)
+        self.leaderboard_btn.button.configure(command = self.leaderboard_btn_click)
 
     def unselect_all(self):
-        self.home_btn.unselect()
-        self.favourites_btn.unselect()
-        self.history_btn.unselect()
-        self.reserved_books_btn.unselect()
-        self.study_section_btn.unselect()
+        self.all_doubts_btn.unselect()
+        self.my_doubts_btn.unselect()
+        self.solved_by_me_btn.unselect()
+        self.ask_doubt_btn.unselect()
+        self.leaderboard_btn.unselect()
 
-    def home_btn_click(self):
+    def all_doubts_btn_click(self):
         self.unselect_all()
-        self.home_btn.click()
+        self.all_doubts_btn.click()
 
-    def favourite_btn_click(self):
+    def my_doubts_btn_click(self):
         self.unselect_all()
-        self.favourites_btn.click()
+        self.my_doubts_btn.click()
 
-    def history_btn_click(self):
+    def solved_by_me_btn_click(self):
         self.unselect_all()
-        self.history_btn.click()
+        self.solved_by_me_btn.click()
 
-    def reserve_btn_click(self):
+    def ask_doubt_btn_click(self):
         self.unselect_all()
-        self.reserved_books_btn.click()
+        self.ask_doubt_btn.click()
 
-    def study_btn_click(self):
+    def leaderboard_btn_click(self):
         self.unselect_all()
-        self.study_section_btn.click()
+        self.leaderboard_btn.click()
 # / Click Functions .................
 
 
@@ -113,18 +119,18 @@ class SideBar:
 # Expand and collapse functions................
     def collapse(self):
         self.frame.configure(width=0)
-        self.home_btn.grid_forget()
-        self.favourites_btn.grid_forget()
-        self.history_btn.grid_forget()
-        self.study_section_btn.grid_forget()
-        self.reserved_books_btn.grid_forget()
+        self.all_doubts_btn.grid_forget()
+        self.my_doubts_btn.grid_forget()
+        self.solved_by_me_btn.grid_forget()
+        self.leaderboard_btn.grid_forget()
+        self.ask_doubt_btn.grid_forget()
 
     def expand(self):
-        self.home_btn.grid(row=1,column=0,padx=0,pady=0)
-        self.favourites_btn.grid(row=2,column=0,padx=0,pady=10)
-        self.history_btn.grid(row=3,column=0,padx=0,pady=0)
-        self.study_section_btn.grid(row=4,column=0,padx=0,pady=10)
-        self.reserved_books_btn.grid(row=5,column=0,padx=0,pady=0)
+        self.all_doubts_btn.grid(row=1,column=0,padx=0,pady=0)
+        self.my_doubts_btn.grid(row=2,column=0,padx=0,pady=10)
+        self.solved_by_me_btn.grid(row=3,column=0,padx=0,pady=0)
+        self.leaderboard_btn.grid(row=4,column=0,padx=0,pady=10)
+        self.ask_doubt_btn.grid(row=5,column=0,padx=0,pady=0)
 # /Expand and collapse functions...............
 
 
@@ -168,36 +174,36 @@ class Sidebar_control:
 
     
     # click functions...............
-    def click(self):
-        if self.sidebar.is_expanded:
-            self.collapse()
-            self.sidebar.is_expanded = False
+    # def click(self):
+    #     if self.sidebar.is_expanded:
+    #         self.collapse()
+    #         self.sidebar.is_expanded = False
         
-        else:
-            self.expand()
-            self.sidebar.is_expanded = True
+    #     else:
+    #         self.expand()
+    #         self.sidebar.is_expanded = True
 
-    def semi_collapse(self):
-        self.sidebar.home_btn.button.configure(text="",width=5)
-        self.sidebar.favourites_btn.button.configure(text="",width=5)
-        self.sidebar.history_btn.button.configure(text="",width=5)
-        self.sidebar.reserved_books_btn.button.configure(text="",width=5)
-        self.sidebar.study_section_btn.button.configure(text="",width=5)
+    # def semi_collapse(self):
+    #     self.sidebar.home_btn.button.configure(text="",width=5)
+    #     self.sidebar.favourites_btn.button.configure(text="",width=5)
+    #     self.sidebar.history_btn.button.configure(text="",width=5)
+    #     self.sidebar.reserved_books_btn.button.configure(text="",width=5)
+    #     self.sidebar.study_section_btn.button.configure(text="",width=5)
         
-    def collapse(self):
-        self.sidebar.frame.configure(width=0)
-        self.sidebar.home_btn.grid_forget()
-        self.sidebar.favourites_btn.grid_forget()
-        self.sidebar.history_btn.grid_forget()
-        self.sidebar.study_section_btn.grid_forget()
-        self.sidebar.reserved_books_btn.grid_forget()
+    # def collapse(self):
+    #     self.sidebar.frame.configure(width=0)
+    #     self.sidebar.home_btn.grid_forget()
+    #     self.sidebar.favourites_btn.grid_forget()
+    #     self.sidebar.history_btn.grid_forget()
+    #     self.sidebar.study_section_btn.grid_forget()
+    #     self.sidebar.reserved_books_btn.grid_forget()
 
-    def expand(self):
-        self.sidebar.home_btn.grid(row=1,column=0,padx=0,pady=0)
-        self.sidebar.favourites_btn.grid(row=2,column=0,padx=0,pady=10)
-        self.sidebar.history_btn.grid(row=3,column=0,padx=0,pady=0)
-        self.sidebar.study_section_btn.grid(row=4,column=0,padx=0,pady=10)
-        self.sidebar.reserved_books_btn.grid(row=5,column=0,padx=0,pady=0)
+    # def expand(self):
+    #     self.sidebar.home_btn.grid(row=1,column=0,padx=0,pady=0)
+    #     self.sidebar.favourites_btn.grid(row=2,column=0,padx=0,pady=10)
+    #     self.sidebar.history_btn.grid(row=3,column=0,padx=0,pady=0)
+    #     self.sidebar.study_section_btn.grid(row=4,column=0,padx=0,pady=10)
+    #     self.sidebar.reserved_books_btn.grid(row=5,column=0,padx=0,pady=0)
     # / Click functions..............
 
 
