@@ -1,0 +1,6 @@
+customtkinter
+pywinstyles
+pillow
+dotenv
+google-genai
+mysql-connector-python
