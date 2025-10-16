@@ -6,7 +6,7 @@ class HistoryPage:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(self.master,
-                              fg_color="#e1d892",
+                              fg_color="#ffffff",
                               bg_color="#ffffff")
         self.label = CTkLabel(self.frame,
                               text="Scholar History")

@@ -6,7 +6,7 @@ class HomePage:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(self.master,
-                              fg_color="#e19292",
+                              fg_color="#ffffff",
                               bg_color="#ffffff")
         self.label = CTkLabel(self.frame,
                               text="Scholar Home")

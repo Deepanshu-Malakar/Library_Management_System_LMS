@@ -92,7 +92,8 @@ if __name__ == "__main__":
     sidebar_control = sidebar.Sidebar_control(upper_frame,sidebar=sidebar_frame)
     sidebar_control.pack(side="left",padx=0,pady=2)
 
-    your_personal_lib_img = CTkImage(Image.open("resources/icons/your personal library logo3.png"),size=(240,60))
+    your_personal_lib_img = CTkImage(Image.open("resources/icons/your personal library logo3.png"),
+                                     size=(240,60))
     your_personal_lib_label = CTkLabel(upper_frame,text="",image=your_personal_lib_img)
     your_personal_lib_label.pack(side="left",padx=100,pady=2)
 

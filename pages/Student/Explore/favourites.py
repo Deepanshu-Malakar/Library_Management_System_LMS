@@ -6,8 +6,11 @@ class FavouritesPage:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(self.master,
-                              fg_color="#8d1e1e",
+                              fg_color="#ffffff",
                               bg_color="#ffffff")
+        self.label = CTkLabel(self.frame,
+                              text="Student Favourites")
+        self.label.pack()
     
     def pack(self,padx=0,pady=0):
         self.frame.pack(padx=padx,pady=pady,fill = "both",expand = True)

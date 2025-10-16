@@ -6,7 +6,7 @@ class FavouritesPage:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(self.master,
-                              fg_color="#8d1e1e",
+                              fg_color="#ffffff",
                               bg_color="#ffffff")
         self.label = CTkLabel(self.frame,
                               text="Scholar Favourites")

@@ -118,7 +118,7 @@ class Scholar_Dashboard:
         self.sidebar_control.pack(side="left",padx=0,pady=2)
 
         self.your_personal_lib_img = CTkImage(Image.open("resources/icons/your personal library logo3.png")
-                                              ,size=(240,60))
+                                              ,size=(240*0.9,60*0.9))
         
         self.your_personal_lib_label = CTkLabel(self.upper_frame,
                                                 text="",
