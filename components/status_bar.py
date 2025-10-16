@@ -85,7 +85,7 @@ class StatusBar:
                                        fg_color="transparent",
                                        bg_color="transparent",
                                        text_color="white",
-                                       width=700,
+                                       width=300,
                                        justify = "right",
                                        font=("roboto",12,"bold"))
         self.credits_label.pack(padx=30,pady=5,side="right")

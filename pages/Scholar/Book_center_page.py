@@ -2,10 +2,10 @@ from tkinter import *
 from customtkinter import *
 from PIL import Image
 from components import sidebar_control_button
-from pages.Student.BookCenter import sidebar
+from pages.Scholar.BookCenter import sidebar
 
-from pages.Student.BookCenter import Donate_book
-from pages.Student.BookCenter import Request_book
+from pages.Scholar.BookCenter import Donate_book
+from pages.Scholar.BookCenter import Request_book
 
 class Page:
     def __init__(self,master,sidebar_control:sidebar.Sidebar_control):

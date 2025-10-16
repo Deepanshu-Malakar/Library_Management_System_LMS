@@ -1,6 +1,20 @@
 from tkinter import *
 from customtkinter import *
+from PIL import Image
 import pywinstyles
+
+from components import sidebar_control_button
+from CTkXYFrame import * 
+from components import navbar_butttons
+from components import navbar_tabs
+from components import status_bar
+
+
+from pages.Scholar import Explore_page
+from pages.Scholar import Doubt_section_page
+from pages.Scholar import Book_center_page
+from pages.Scholar import Help_and_support_page
+
 
 class colors:
     def __init__(self):
@@ -25,6 +39,7 @@ class colors:
 
 class Scholar_Dashboard:
     def __init__(self,master:CTk,username):
+        self.current_tab = "Explore"
         self.master = master
         self.master.state("zoomed")
         pywinstyles.change_header_color(self.master,colors().base_color)
@@ -32,8 +47,158 @@ class Scholar_Dashboard:
         self.username = username
         self.frame = CTkFrame(self.master,
                               corner_radius=0)
-        self.label = CTkLabel(self.frame,text="Scholar Dashboard")
-        self.label.pack()
+        self.create_dashboard()
+        self.apply_click_functions()
+        
 
+    def create_dashboard(self):
+        self.upper_frame = CTkFrame(self.frame,
+                            fg_color=colors().navbar,
+                            bg_color=colors().navbar,
+                            width=1920,
+                            height=70,
+                            #    border_color="#C6C6C6",
+                            border_color=colors().book_base_old, 
+                            border_width=2,
+                            corner_radius=0)
+        self.upper_frame.pack(padx=0,pady=0,side="top",fill="x")   
+        self.create_navbar()
+        self.create_status_bar()
+        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
+        self.page_frame.pack()
+            
+    def create_navbar(self):
+        # profile settings and notifications...............
+        self.navbar_buttons_frame = CTkFrame(self.upper_frame,
+                                        fg_color="transparent",
+                                        bg_color="transparent")
+        
+
+        self.profile = navbar_butttons.NavbarButtons(self.navbar_buttons_frame,"resources/icons/profile.png")
+        self.profile.pack(side="right",padx=10,pady=0)
+
+        self.settings = navbar_butttons.NavbarButtons(self.navbar_buttons_frame,"resources/icons/settings.png")
+        self.settings.pack(side="right",padx=10,pady=0)
+
+
+        self.notifications = navbar_butttons.NavbarButtons(self.navbar_buttons_frame,"resources/icons/notifications.png")
+        self.notifications.pack(side="right",padx=10,pady=0)
+
+        self.navbar_buttons_frame.pack(side="right",padx=0,pady=5)
+        # /profile settings and notifications..............
+
+
+
+    # Explore, book center, doubt section and help tabs....................
+        self.navebar_tabs_frame = CTkFrame(self.upper_frame,
+                                fg_color="transparent",
+                                bg_color="transparent",
+                                height=20)
+        
+        self.explore_tab = navbar_tabs.NavbarTabs(self.navebar_tabs_frame,"Explore",is_active=True)
+        self.explore_tab.grid(row=0,column=0,padx=0,pady=0)
+
+        self.Book_center_tab = navbar_tabs.NavbarTabs(self.navebar_tabs_frame,"Book Center",is_active=False)   # use donate book in book center
+        self.Book_center_tab.grid(row=0,column=1,padx=0,pady=0)
+
+        self.Help_tab = navbar_tabs.NavbarTabs(self.navebar_tabs_frame,"Help & Support",is_active=False)
+        self.Help_tab.grid(row=0,column=3,padx=0,pady=0)
+
+        self.Doubt_tab = navbar_tabs.NavbarTabs(self.navebar_tabs_frame,"Doubt Section",is_active=False)
+        self.Doubt_tab.grid(row=0,column=2,padx=0,pady=0)
+
+        self.navebar_tabs_frame.pack(side="right",padx=20,pady=0)
+
+    # / Explore, book center, doubt section and help tabs....................
+
+
+    # Hi username , library logo and sidebar controller
+        # sidebar_frame = sidebar.SideBar(self.frame) 
+        self.sidebar_control = sidebar_control_button.Sidebar_control(self.upper_frame,f"Welcome {self.username}")
+        self.sidebar_control.pack(side="left",padx=0,pady=2)
+
+        self.your_personal_lib_img = CTkImage(Image.open("resources/icons/your personal library logo3.png")
+                                              ,size=(240,60))
+        
+        self.your_personal_lib_label = CTkLabel(self.upper_frame,
+                                                text="",
+                                                image=self.your_personal_lib_img)
+        
+        self.your_personal_lib_label.pack(side="left",padx=100,pady=2)
+
+    def create_status_bar(self):
+        self.status_bar = status_bar.StatusBar(self.frame,self.username,0,0,0,0)
+        self.status_bar.pack()
+#tabs switch functions.....................
+    def apply_click_functions(self):
+        self.explore_tab.frame.bind("<Button-1>",self.open_explore_tab)
+        self.explore_tab.button.bind("<Button-1>",self.open_explore_tab)
+
+        self.Book_center_tab.frame.bind("<Button-1>",self.open_bookcenter_tab)
+        self.Book_center_tab.button.bind("<Button-1>",self.open_bookcenter_tab)
+
+        self.Doubt_tab.frame.bind("<Button-1>",self.open_doubt_section_tab)
+        self.Doubt_tab.button.bind("<Button-1>",self.open_doubt_section_tab)
+
+        self.Help_tab.frame.bind("<Button-1>",self.open_help_tab)
+        self.Help_tab.button.bind("<Button-1>",self.open_help_tab)
+
+    def unselect_all_tabs(self):
+        self.explore_tab.unselect()
+        self.Book_center_tab.unselect()
+        self.Doubt_tab.unselect()
+        self.Help_tab.unselect()
+
+
+# / tabs switch functions...................
+
+
+
+# tabs opening functions.................
+    def open_explore_tab(self,e):
+        self.unselect_all_tabs()
+        self.explore_tab.click()
+        self.page_frame.pack_forget()
+        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
+        self.page_frame.pack()
+
+    def open_bookcenter_tab(self,e):
+        self.unselect_all_tabs()
+        self.Book_center_tab.click()
+        self.page_frame.pack_forget()
+        self.page_frame = Book_center_page.Page(self.frame,self.sidebar_control)
+        self.page_frame.pack()
+
+    def open_doubt_section_tab(self,e):
+        self.unselect_all_tabs()
+        self.Doubt_tab.click()
+        self.page_frame.pack_forget()
+        self.page_frame = Doubt_section_page.Page(self.frame,self.sidebar_control)
+        self.page_frame.pack()
+
+    def open_help_tab(self,e):
+        self.unselect_all_tabs()
+        self.Help_tab.click()
+        self.page_frame.pack_forget()        
+        self.page_frame = Help_and_support_page.Page(self.frame,self.sidebar_control)
+        self.page_frame.pack()
+
+# / tabs opening functions..................
+    #placement methods..................................................
     def pack(self,padx=0,pady=0):
-        self.frame.pack(padx=padx,pady=pady,fill = 'both',expand = True) 
+        self.frame.pack(padx=padx,pady=pady,fill = 'both',expand = True)
+    # / placement methods...............................................
+
+if __name__ == "__main__":
+    set_appearance_mode("light")
+    root = CTk(fg_color="#ffffff")
+    root.geometry('1920x800')
+    root.state("zoomed")
+    root.title("Your Personal Library")
+    root.iconbitmap("resources/icons/library icon.ico")
+
+    page = Scholar_Dashboard(root,"Ankit")
+    page.pack()
+
+    pywinstyles.change_header_color(root,colors().base_color)
+    root.mainloop()
