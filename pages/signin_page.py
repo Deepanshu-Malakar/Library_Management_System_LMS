@@ -204,3 +204,6 @@ if __name__ == "__main__":
     signup_page.pack(0, 0)
 
     root.mainloop()
+
+
+    # this file was renamed
