@@ -21,7 +21,7 @@ class Page:
                               corner_radius=0)
         self.create_sidebar()
         self.apply_page_controls()
-        self.page_frame = IssueBooks.HomePage(self.frame)
+        self.page_frame = IssueBooks.IssuePage(self.frame)
         self.page_frame.pack()
 
     # Working on sidebar..............................................    

@@ -21,7 +21,7 @@ class SideBar:
     def __init__(self,master):
         self.master = master
         self.frame = CTkFrame(master,fg_color=colors.sidebar,width=300,corner_radius=0,bg_color=colors.sidebar)
-        self.button_width = 110
+        self.button_width = 130
 
         self.issue_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Issue Books",
@@ -72,7 +72,7 @@ class SideBar:
                                                 img_active="resources/icons/leaderboard dark.png",
                                                 img_inactive="resources/icons/leaderboard light.png",
                                                 is_active=False)
-        self.add_books_btn.grid(row=6,column=0,padx=0,pady=0)
+        self.add_books_btn.grid(row=6,column=0,padx=0,pady=10)
         self.add_books_btn.button.configure(width=self.button_width)
 
 
