@@ -20,7 +20,7 @@ colors = color()
 class SideBar:
     def __init__(self,master):
         self.master = master
-        self.frame = CTkFrame(master,fg_color=colors.sidebar,width=300,corner_radius=0)
+        self.frame = CTkFrame(master,fg_color=colors.sidebar,width=300,corner_radius=0,bg_color=colors.sidebar)
 
         self.home_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Home",

@@ -11,7 +11,7 @@ class colors:
     def __init__(self):
         self.login = "#7F495D"
         self.login_hover = "#663A4A"
-        self.role = "#6A3E50"
+        self.role = "#7F495D"
 
 class button:
     def __init__(self,master,text,image,command):
@@ -81,6 +81,10 @@ class RoleButtons:
     def apply_hover_effects(self):
         self.frame.bind("<Enter>",self.hover)
         self.frame.bind("<Leave>",self.unhover)
+        self.button.bind("<Enter>",self.hover)
+        self.button.bind("<Leave>",self.unhover)
+        self.check_label.bind("<Enter>",self.hover)
+        self.check_label.bind("<Leave>",self.unhover)
 
     def hover(self,e):
         self.frame.configure(fg_color = colors().login_hover)
@@ -96,6 +100,7 @@ class RoleButtons:
 
     def apply_click_effects(self):
         self.frame.bind("<Button-1>",self.click)
+        self.check_label.bind("<Button-1>",self.click)
     #/Click effects.............................. 
 
 #//////////////////////////////////////////////////////////////////

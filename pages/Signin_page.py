@@ -30,8 +30,9 @@ class Form:
     def create_form(self):
         self.label = CTkLabel(self.frame,
                               text=self.text,
-                              text_color=colors().purple,
-                              font=("roboto",12),
+                            #   text_color=colors().purple,
+                              text_color="black",
+                              font=("roboto",12,"bold"),
                               )
         self.label.place(x=5,y=0)
 
@@ -39,8 +40,9 @@ class Form:
         underline_width = 43
         self.underline = CTkLabel(self.frame,
                               text=underline_width*"_",
-                              text_color=colors().purple,
-                              font=("roboto",13),
+                            #   text_color=colors().purple,
+                              text_color="black",
+                              font=("roboto",13,"bold"),
                               )
         self.underline.place(x=5,y=37)
 
@@ -132,9 +134,11 @@ class Signup:
                                        text="Login", 
                                        command=self.signin,
                                        width=60,
+                                       height=30,
                                        fg_color=colors().purple,
                                        font=("roboto",12))
         self.signin_button.pack(pady=30)
+        self.apply_hover_effects()
 
 
 #placement methods............................
@@ -143,6 +147,25 @@ class Signup:
 #/ placement methods................................
 
 
+# Hover effects................................
+    def apply_hover_effects(self):
+        self.signin_button.bind("<Enter>",self.login_hover)
+        self.signin_button.bind("<Leave>",self.login_unhover)
+
+    def login_hover(self,e):
+        # self.master.after(2000,self.increase_login_btn)
+        self.signin_button.configure(width = 100,height = 40)
+    
+    def login_unhover(self,e):
+        # self.master.after(2000,self.decrease_login_btn)
+        self.signin_button.configure(width = 60,height = 30)
+
+    def increase_login_btn(self):
+        self.signin_button.configure(width = 100)
+
+    def decrease_login_btn(self):
+        self.signin_button.configure(width = 60)
+# / Hover effects..............................
 
 #click functions................................
     def hide_text(self):

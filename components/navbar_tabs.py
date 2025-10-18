@@ -33,7 +33,7 @@ class NavbarTabs:
                                   width=50,
                                   height=1,
                                   text_color=colors.base_color if self.is_active else colors.book_base)
-        self.underline.place(x=30,y=36)
+        self.underline.place(x=30,y=35)
 
 # placement methods................
     def pack(self,padx=0,pady=0,fill="left"):
