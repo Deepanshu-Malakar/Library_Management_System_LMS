@@ -2,9 +2,11 @@ from customtkinter import *
 from tkinter import *
 from pages import Welcome_page
 import pywinstyles
+from backend import mysql_tables
 
 set_appearance_mode("light")
 if __name__ == "__main__":
+    mysql_tables.create_tables()
 
     width = 2228
     height = 1480

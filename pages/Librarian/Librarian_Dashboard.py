@@ -40,13 +40,14 @@ class colors:
 
 
 class Librarian_Dashboard:
-    def __init__(self,master:CTk,username):
+    def __init__(self,master:CTk,username,user_id):
         self.current_tab = "Book Management"
         self.master = master
         self.master.state("zoomed")
         pywinstyles.change_header_color(self.master,colors().base_color)
         
         self.username = username
+        self.user_id = user_id
         self.frame = CTkFrame(self.master,
                               corner_radius=0)
         self.create_dashboard()

@@ -7,6 +7,8 @@ from pages.Librarian import Librarian_Dashboard
 from pages.Scholar import Scholar_Dashboard
 from pages.Faculty import Faculty_Dashboard
 from tkinter import messagebox
+from backend import mysql_tables
+
 
 class colors:
     def __init__(self):
@@ -186,8 +188,6 @@ class Signup:
         username = self.username.entry.get()
         password = self.password.entry.get()
 
-        
-        messagebox.showinfo("Success", f"Account logged in for {username}")
 
         self.username.entry.delete(0, END)
         self.password.entry.delete(0, END)
@@ -197,10 +197,22 @@ class Signup:
             self.frame = Student_Dashboard.Student_Dashboard(self.master,username)
             self.frame.pack()
             
+    # Librarian role......................................
         elif self.role.lower() == "librarian":
-            self.page_frame.pack_forget()
-            self.frame = Librarian_Dashboard.Librarian_Dashboard(self.master,username)
-            self.frame.pack()
+            librarian = mysql_tables.find_librarian(username)
+            if not librarian:
+                messagebox.showerror("Failed","Username or password wrong")
+            elif not librarian["password"] == password:
+                messagebox.showerror("Failed","Username or password wrong")
+            else:
+                user_id = username
+                username = librarian["first_name"]
+                messagebox.showinfo("success", f"account logged in for {username}")
+                self.page_frame.pack_forget()
+                self.frame = Librarian_Dashboard.Librarian_Dashboard(self.master,username,user_id)
+                self.frame.pack()
+    
+    # / Librarian role...............................................
         elif self.role.lower() == "faculty":
             self.page_frame.pack_forget()
             self.frame = Faculty_Dashboard.Faculty_Dashboard(self.master,username)
