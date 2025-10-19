@@ -25,16 +25,16 @@ class SideBar:
 
         self.user_details_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="User Details",
-                                                img_active="resources/icons/all doubts dark.png",
-                                                img_inactive="resources/icons/all doubts light.png",
+                                                img_active="resources/icons/user details dark.png",
+                                                img_inactive="resources/icons/user details light.png",
                                                 is_active=True)
         self.user_details_btn.grid(row=1,column=0,padx=0,pady=0)
         self.user_details_btn.button.configure(width=self.button_width)
 
         self.register_new_user_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Register New User",
-                                                img_active="resources/icons/my doubts dark.png",
-                                                img_inactive="resources/icons/my doubts light.png",
+                                                img_active="resources/icons/add user dark.png",
+                                                img_inactive="resources/icons/add user light.png",
                                                 is_active=False)
         self.register_new_user_btn.grid(row=2,column=0,padx=0,pady=10)
         self.register_new_user_btn.button.configure(width=self.button_width)
@@ -42,8 +42,8 @@ class SideBar:
 
         self.suspended_users_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Suspended Users",
-                                                img_active="resources/icons/solved by me dark.png",
-                                                img_inactive="resources/icons/solved by me light.png",
+                                                img_active="resources/icons/suspend user dark.png",
+                                                img_inactive="resources/icons/suspend user light.png",
                                                 is_active=False)
         self.suspended_users_btn.grid(row=3,column=0,padx=0,pady=0)
         self.suspended_users_btn.button.configure(width=self.button_width)
@@ -51,8 +51,8 @@ class SideBar:
 
         self.blacklisted_users_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Blacklisted Users",
-                                                img_active="resources/icons/ask doubt dark.png",
-                                                img_inactive="resources/icons/ask doubt light.png",
+                                                img_active="resources/icons/blacklist user dark.png",
+                                                img_inactive="resources/icons/blacklist user light.png",
                                                 is_active=False)
         self.blacklisted_users_btn.grid(row=4,column=0,padx=0,pady=10)
         self.blacklisted_users_btn.button.configure(width=self.button_width)

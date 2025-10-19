@@ -25,6 +25,18 @@ class NavbarButtons:
                                 corner_radius=5)
         self.button.pack()       
     
+    #click effects........................
+    def click(self,master,text):
+        self.popup = CTkToplevel(master,fg_color="#ffffff")
+        self.popup.geometry("500x500")
+        self.popup.title(text)
+        # self.popup.focus()
+        self.popup.transient(master)     # keeps it on top of master
+        self.popup.attributes("-topmost", True)  # brings it above all windows
+        self.popup.focus_force()
+        self.popup.grab_set()
+    #/click effects.......................... 
+
     # placement methods.........
     def pack(self,padx=0,pady=0,side="left"):
         self.frame.pack(padx=padx,pady=pady,side=side)

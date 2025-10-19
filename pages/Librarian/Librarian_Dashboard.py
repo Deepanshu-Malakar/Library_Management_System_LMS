@@ -50,6 +50,7 @@ class Librarian_Dashboard:
         self.frame = CTkFrame(self.master,
                               corner_radius=0)
         self.create_dashboard()
+        self.apply_popup_effects()
         self.apply_click_functions()
         
 
@@ -131,6 +132,30 @@ class Librarian_Dashboard:
     def create_status_bar(self):
         self.status_bar = status_bar.StatusBar(self.frame,self.username,0,0,0,0)
         self.status_bar.pack()
+
+
+# profile notification and settings popup..............
+    def apply_popup_effects(self):
+        self.notifications.frame.bind("<Button-1>",self.notifications_click)
+        self.notifications.button.bind("<Button-1>",self.notifications_click)
+        
+        self.profile.frame.bind("<Button-1>",self.profile_click)
+        self.profile.button.bind("<Button-1>",self.profile_click)
+
+        self.settings.frame.bind("<Button-1>",self.settings_click)
+        self.settings.button.bind("<Button-1>",self.settings_click)
+
+    def notifications_click(self,e):
+        self.notifications.click(master=self.master,text="Notifications")
+    def profile_click(self,e):
+        self.profile.click(master=self.master,text="Your profile")
+    def settings_click(self,e):
+        self.settings.click(master=self.master,text="Settings")
+
+# /profile notification and settings popup..............
+
+
+
 #tabs switch functions.....................
     def apply_click_functions(self):
         self.book_management_tab.frame.bind("<Button-1>",self.open_book_management_tab)

@@ -25,16 +25,16 @@ class SideBar:
 
         self.issue_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Issue Books",
-                                                img_active="resources/icons/all doubts dark.png",
-                                                img_inactive="resources/icons/all doubts light.png",
+                                                img_active="resources/icons/issue book dark.png",
+                                                img_inactive="resources/icons/issue book light.png",
                                                 is_active=True)
         self.issue_books_btn.grid(row=1,column=0,padx=0,pady=0)
         self.issue_books_btn.button.configure(width=self.button_width)
 
         self.return_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Return Books",
-                                                img_active="resources/icons/my doubts dark.png",
-                                                img_inactive="resources/icons/my doubts light.png",
+                                                img_active="resources/icons/return book dark.png",
+                                                img_inactive="resources/icons/return book light.png",
                                                 is_active=False)
         self.return_books_btn.grid(row=2,column=0,padx=0,pady=10)
         self.return_books_btn.button.configure(width=self.button_width)
@@ -42,8 +42,8 @@ class SideBar:
 
         self.reserve_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Reserve Books",
-                                                img_active="resources/icons/solved by me dark.png",
-                                                img_inactive="resources/icons/solved by me light.png",
+                                                img_active="resources/icons/ReservedDark.png",
+                                                img_inactive="resources/icons/ReservedLight.png",
                                                 is_active=False)
         self.reserve_books_btn.grid(row=3,column=0,padx=0,pady=0)
         self.reserve_books_btn.button.configure(width=self.button_width)
@@ -51,8 +51,8 @@ class SideBar:
 
         self.due_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Due Books",
-                                                img_active="resources/icons/ask doubt dark.png",
-                                                img_inactive="resources/icons/ask doubt light.png",
+                                                img_active="resources/icons/due books dark.png",
+                                                img_inactive="resources/icons/due books light.png",
                                                 is_active=False)
         self.due_books_btn.grid(row=4,column=0,padx=0,pady=10)
         self.due_books_btn.button.configure(width=self.button_width)
@@ -61,16 +61,16 @@ class SideBar:
 
         self.requested_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Requested Books",
-                                                img_active="resources/icons/leaderboard dark.png",
-                                                img_inactive="resources/icons/leaderboard light.png",
+                                                img_active="resources/icons/request book dark.png",
+                                                img_inactive="resources/icons/request book light.png",
                                                 is_active=False)
         self.requested_books_btn.grid(row=5,column=0,padx=0,pady=0)
         self.requested_books_btn.button.configure(width=self.button_width)
 
         self.add_books_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Add Books",
-                                                img_active="resources/icons/leaderboard dark.png",
-                                                img_inactive="resources/icons/leaderboard light.png",
+                                                img_active="resources/icons/add book dark.png",
+                                                img_inactive="resources/icons/add book light.png",
                                                 is_active=False)
         self.add_books_btn.grid(row=6,column=0,padx=0,pady=10)
         self.add_books_btn.button.configure(width=self.button_width)
