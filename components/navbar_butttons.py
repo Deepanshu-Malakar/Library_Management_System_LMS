@@ -26,9 +26,9 @@ class NavbarButtons:
         self.button.pack()       
     
     #click effects........................
-    def click(self,master,text):
+    def click(self,master:CTk,text):
         self.popup = CTkToplevel(master,fg_color="#ffffff")
-        self.popup.geometry("500x500")
+        self.popup.geometry(f"500x500+{master.winfo_width()-630}+100")
         self.popup.title(text)
         # self.popup.focus()
         self.popup.transient(master)     # keeps it on top of master
