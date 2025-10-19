@@ -24,15 +24,15 @@ class SideBar:
 
         self.request_book_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Suggest Book",
-                                                img_active="resources/icons/HomeDark.png",
-                                                img_inactive="resources/icons/HomeLight.png",
+                                                img_active="resources/icons/request book dark.png",
+                                                img_inactive="resources/icons/request book light.png",
                                                 is_active=True)
         self.request_book_btn.grid(row=1,column=0,padx=0,pady=0)
 
         self.donate_book_btn = sidebar_buttons.SidebarButtons(self.frame,
                                                 text="Donate Book",
-                                                img_active="resources/icons/FavouritesDark.png",
-                                                img_inactive="resources/icons/FavouritesLight.png",
+                                                img_active="resources/icons/donate book dark.png",
+                                                img_inactive="resources/icons/donate book light.png",
                                                 is_active=False)
         self.donate_book_btn.grid(row=2,column=0,padx=0,pady=10)
 
