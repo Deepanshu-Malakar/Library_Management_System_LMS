@@ -32,8 +32,8 @@ class Form:
     def create_form(self):
         self.label = CTkLabel(self.frame,
                               text=self.text,
-                            #   text_color=colors().purple,
-                              text_color="black",
+                              text_color=colors().purple,
+                            #   text_color="black",
                               font=("roboto",12,"bold"),
                               )
         self.label.place(x=5,y=0)
@@ -42,8 +42,8 @@ class Form:
         underline_width = 43
         self.underline = CTkLabel(self.frame,
                               text=underline_width*"_",
-                            #   text_color=colors().purple,
-                              text_color="black",
+                              text_color=colors().purple,
+                            #   text_color="black",
                               font=("roboto",13,"bold"),
                               )
         self.underline.place(x=5,y=37)

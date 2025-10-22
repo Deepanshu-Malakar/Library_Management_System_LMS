@@ -35,6 +35,45 @@ def create_tables():
     "cover_img varchar(512)," \
     "description varchar(1024)" \
     ")")
+
+    cur.execute(""" 
+    create table if not exists students(
+        student_id varchar(30) primary key,
+        first_name varchar(20),
+        last_name varchar(20),
+        phone_no varchar(10),
+        DOB date,
+        gender varchar(1),
+        email varchar(100),
+        password varchar(30),
+        department varchar(50)
+    )""")
+
+    cur.execute(""" 
+    create table if not exists faculty(
+        faculty_id varchar(30) primary key,
+        first_name varchar(20),
+        last_name varchar(20),
+        phone_no varchar(10),
+        DOB date,
+        gender varchar(1),
+        email varchar(100),
+        password varchar(30),
+        department varchar(50)
+    )""")
+
+    cur.execute(""" 
+    create table if not exists scholars(
+        scholar_id varchar(30) primary key,
+        first_name varchar(20),
+        last_name varchar(20),
+        phone_no varchar(10),
+        DOB date,
+        gender varchar(1),
+        email varchar(100),
+        password varchar(30),
+        topic varchar(50))""")
+
     mydb.commit()
 
 
@@ -66,6 +105,7 @@ def find_librarian(lib_id):
 #/ Librarian..............................................................................
 
 
+# Books..................................................................................
 
 def insert_book(book_id,title,author,edition,category,status,available,cover_img,description):
     cur.execute("insert into books values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(book_id,title,author,edition,category,status,available,cover_img,description))
@@ -92,7 +132,24 @@ def find_book(book_id):
         return record
     except:
         return 0 
+def generate_book_id():
+    cur.execute("select max(book_id) from books")
+    data = cur.fetchall()[0][0]
+    if data==None:
+        return 1001
+    else:
+        return data+1
 
-# create_tables()
+def get_book_by_title():
+    cur.execute(f"""SELECT distinct title,author,edition,category,status,available,cover_img,description from books;
+                """)
+    return cur.fetchall()
+
+def get_copies_of_book(title):
+    cur.execute(f"select count(*) from books where title='{title}'")
+    return cur.fetchall()[0][0]
+#/ Books..................................................................................
+
+
 
 

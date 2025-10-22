@@ -22,8 +22,9 @@ def query(prompt):
         )
 
         
-        print(response.text)
+        return response.text
 
     except Exception as e:
         print(f"An error occurred: {e}")
         print("\nPlease ensure your .env file is correctly set up and contains a valid GEMINI_API_KEY.")
+

@@ -20,14 +20,14 @@ def draw_books(master, books):
         col = index % max_per_row
 
         # Place book in grid
-        book.grid(row=row, column=col, padx=15, pady=15, sticky="nsew")
+        book.grid(row=row, column=col, padx=10, pady=10) #sticky="nsew")
 
     # Make grid cells expand equally
-    total_rows = (len(books) + max_per_row - 1) // max_per_row
-    for r in range(total_rows):
-        master.rowconfigure(r, weight=1)
-    for c in range(max_per_row):
-        master.columnconfigure(c, weight=1)
+    # total_rows = (len(books) + max_per_row - 1) // max_per_row
+    # for r in range(total_rows):
+    #     master.rowconfigure(r, weight=1)
+    # for c in range(max_per_row):
+    #     master.columnconfigure(c, weight=1)
 
 if __name__ == "__main__":
     app = CTk()
