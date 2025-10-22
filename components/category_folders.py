@@ -12,20 +12,25 @@ class FolderBar:
         self.frame = CTkFrame(self.master,
                               fg_color="transparent",
                               bg_color="transparent")
-        # self.add_btn = Folder(self.frame,"New Category",self,False)
-        # self.add_btn.button.configure(image = CTkImage(Image.open("resources/icons/add folder image.png"),size=(18,18)))
-        # self.add_btn.grid(row=0,column=20,padx=10,pady=5)
+        self.add_btn = Folder(self.frame,"New Category",self,False)
+        self.add_btn.button.configure(image = CTkImage(Image.open("resources/icons/add folder image.png"),size=(18,18)))
+        self.add_btn.grid(row=0,column=20,padx=10,pady=5)
 
         self.categories = []
         self.total_categories = 0
 
+# Add Category Function.........................
     def add_category(self,text:str,is_active:bool = False):
         category = Folder(self.frame,text,self,is_active)
         category.grid(row=0,column=self.total_categories,padx=10,pady=5)
         self.categories.append(category)
         self.total_categories+=1
         return category
+ 
 
+        # self.new_window.pack()
+
+#` Add Category Function.........................`
 
 # Click Functions.........................
     def unclick_all_categories(self):
