@@ -3,7 +3,12 @@ from tkinter import *
 from PIL import Image
 # from pages import _page
 from pages import Signin_page
-from pages import Student_Signup_Page
+# from pages import Student_Signup_Page
+from pages.Signup_Pages import Student_signup_page
+from pages.Signup_Pages import faculty_signup_page
+from pages.Signup_Pages import Librarian_signup_page
+from pages.Signup_Pages import Scholar_signup_page
+
 import pywinstyles
 set_appearance_mode("light")
 
@@ -217,7 +222,19 @@ class Welcome_page:
     def signup(self):
         if self.role.lower() == "student":
             self.frame.pack_forget()
-            self.frame = Student_Signup_Page.StudentSignup(self.master)
+            self.frame = Student_signup_page.StudentSignupApp(self.master)
+            self.frame.pack()
+        elif self.role.lower() == "faculty":
+            self.frame.pack_forget()
+            self.frame = faculty_signup_page.FacultySignupApp(self.master)
+            self.frame.pack()
+        elif self.role.lower() == "librarian":
+            self.frame.pack_forget()
+            self.frame = Librarian_signup_page.LibrarianSignupApp(self.master)
+            self.frame.pack()
+        elif self.role.lower() == "scholar":
+            self.frame.pack_forget()
+            self.frame = Scholar_signup_page.ScholarSignupApp(self.master)
             self.frame.pack()
     # // Click functions .........................
 

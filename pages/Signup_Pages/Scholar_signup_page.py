@@ -148,14 +148,14 @@ class Form:
         self.frame.grid(row=row, column=column, padx=padx, pady=pady, sticky=sticky)
 
 
-class ScholarSignupApp(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class ScholarSignupApp(ctk.CTkFrame):
+    def __init__(self,master):
+        super().__init__(master)
         
-        self.title("Scholar Signup")
-        self.geometry("700x850") 
-        ctk.set_appearance_mode("System")
-
+        # self.title("Scholar Signup")
+        # self.geometry("700x850") 
+        # ctk.set_appearance_mode("System")
+        self.master = master
         self.main_frame = ctk.CTkFrame(self, 
                                        fg_color="white", 
                                        corner_radius=15,

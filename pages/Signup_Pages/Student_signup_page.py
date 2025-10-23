@@ -1,5 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
+from backend import register_users
+from tkinter import messagebox
 
 class colors:
     def __init__(self):
@@ -110,23 +112,23 @@ class Form:
         
         formatted = ""
         
-        if len(cleaned) >= 2:
-            formatted += cleaned[0:2] + "/"
+        if len(cleaned) >= 4:
+            formatted += cleaned[0:4] + "-"
         else:
             formatted += cleaned
             
-        if len(cleaned) >= 4:
-            formatted += cleaned[2:4] + "/"
-        elif len(cleaned) > 2:
-            formatted += cleaned[2]
+        if len(cleaned) >= 6:
+            formatted += cleaned[4:6] + "-"
+        elif len(cleaned) > 4:
+            formatted += cleaned[4]
             
-        if len(cleaned) > 4:
-            formatted += cleaned[4:8]
+        if len(cleaned) > 6:
+            formatted += cleaned[6:8]
 
-        if formatted.endswith('/') and len(formatted.replace('/', '')) < len(cleaned):
-            if len(formatted) == 3 and len(cleaned) == 2:
+        if formatted.endswith('-') and len(formatted.replace('-', '')) < len(cleaned):
+            if len(formatted) == 5 and len(cleaned) == 4:
                 formatted = formatted[:-1]
-            elif len(formatted) == 6 and len(cleaned) == 4:
+            elif len(formatted) == 8 and len(cleaned) == 6:
                 formatted = formatted[:-1]
 
         self.entry_var.set(formatted)
@@ -148,15 +150,15 @@ class Form:
         self.frame.grid(row=row, column=column, padx=padx, pady=pady, sticky=sticky)
 
 
-class StudentSignupApp(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class StudentSignupApp(ctk.CTkFrame):
+    def __init__(self,master):
+        super().__init__(master)
         
-        self.title("Student Signup")
-        self.geometry("700x850") 
-        ctk.set_appearance_mode("System")
-
-        self.main_frame = ctk.CTkFrame(self, 
+        # self.title("Student Signup")
+        # self.geometry("700x850") 
+        # ctk.set_appearance_mode("System")
+        self.master = master
+        self.main_frame = ctk.CTkFrame(master, 
                                        fg_color="white", 
                                        corner_radius=15,
                                        border_width=2,
@@ -205,7 +207,7 @@ class StudentSignupApp(ctk.CTk):
         self.gender_combo.set("Select Gender")
         self.gender_combo.grid(row=2, column=0, padx=30, pady=(40, 15), sticky="w")
         
-        self.dob = Form(self.form_frame, text="Date of Birth (DD/MM/YYYY):", is_dob=True)
+        self.dob = Form(self.form_frame, text="Date of Birth (YYYY-MM-DD):", is_dob=True)
         self.dob.grid(row=2, column=1, padx=30, pady=15, sticky="w") 
 
         # Row 3: Department (Left) and Enrollment Year (Right)
@@ -297,11 +299,58 @@ class StudentSignupApp(ctk.CTk):
         if len(password) < 8 or not any(c.isdigit() for c in password) or not any(c.isalpha() for c in password):
             self.message_label.configure(text="Error: Password must be at least 8 characters and contain both letters and numbers.", text_color="red")
             return
+        
 
+
+
+        
+        # check for valid user................
+        if not register_users.check_if_user_exist(data["Student ID"]):
+            messagebox.showerror("Error","User Invalid")
+            return
+        
+        #check if already registered...........
+        stu_id = data["Student ID"]
+        register_users.cur.execute(f"select * from students where student_id = '{stu_id}'")
+        user_exist = register_users.cur.fetchall()
+        if len(user_exist)>0:
+            messagebox.showerror("Error","Student Already registered")
+            return
+        
+        # email does not match................
+        
+        register_users.cur.execute(f"select email,role from users where user_id = '{stu_id}'")
+        email,role = register_users.cur.fetchall()[0]
+        
+        if email != data["Email"]:
+            messagebox.showerror("Error","Email does not match")
+            return
+        
+        if role.lower() != "student":
+            messagebox.showerror("Error","User is not a student")
+            return
+        
+        first_name = data["Full Name"].split()[0]
+        if len(data["Full Name"]) > 0:
+            last_name = data["Full Name"].split()[1]
+        else:
+            last_name = ""
+        
+        register_users.insert_student(student_id=data["Student ID"],
+                                      first_name=first_name,
+                                      last_name=last_name,
+                                      phone=data["Phone No."],
+                                      gender="M" if data["Gender"].lower() == "male" else "F",
+                                      email=data["Email"],
+                                      password=data["Password"],
+                                      department=data["Department"],
+                                      dob=data["Date of Birth"])
+        
+        messagebox.showinfo("Success","Student registered Successfully")  
         # If all checks pass
-        success_message = f"Signup Successful for Scholar: {data['Full Name']}!"
+        success_message = f"Signup Successful for Student: {data['Full Name']}!"
         self.message_label.configure(text=success_message, text_color="green")
-        print("Scholar Data Submitted:", data)
+        # print("Scholar Data Submitted:", data)
 
 if __name__ == "__main__":
     app = StudentSignupApp()

@@ -8,6 +8,7 @@ from pages.Scholar import Scholar_Dashboard
 from pages.Faculty import Faculty_Dashboard
 from tkinter import messagebox
 from backend import mysql_tables
+from backend import register_users
 
 
 class colors:
@@ -185,16 +186,26 @@ class Signup:
         messagebox.showinfo("Forgot Password", "Password recovery instructions would be sent to your registered email.")
         
     def signin(self):
-        username = self.username.entry.get()
+        userid = self.username.entry.get()
         password = self.password.entry.get()
 
 
         self.username.entry.delete(0, END)
         self.password.entry.delete(0, END)
 
+    # Authenticate student...............................
         if self.role.lower() == "student":
+            student_record = register_users.get_student(userid)
+            if len(student_record)<1:
+                messagebox.showerror("Error","Invalid username or password")
+                return
+            if password != student_record["password"]:
+                messagebox.showerror("Error","Invalid username or password")
+                return
+            messagebox.showinfo("Success",f"Login for {student_record['first name']}")
+            
             self.page_frame.pack_forget()
-            self.frame = Student_Dashboard.Student_Dashboard(self.master,username)
+            self.frame = Student_Dashboard.Student_Dashboard(self.master,student_record)
             self.frame.pack()
             
     # Librarian role......................................

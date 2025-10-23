@@ -73,6 +73,12 @@ def create_tables():
         email varchar(100),
         password varchar(30),
         topic varchar(50))""")
+    
+    cur.execute(""" 
+        create table if not exists users(
+            user_id varchar(30),
+            email varchar(100),
+            role varchar(30));""")
 
     mydb.commit()
 
@@ -145,8 +151,8 @@ def get_book_by_title():
                 """)
     return cur.fetchall()
 
-def get_copies_of_book(title):
-    cur.execute(f"select count(*) from books where title='{title}'")
+def get_copies_of_book(title,author,edition):
+    cur.execute(f"select count(*) from books where title='{title}' and edition = '{edition}' and author = '{author}'")
     return cur.fetchall()[0][0]
 #/ Books..................................................................................
 

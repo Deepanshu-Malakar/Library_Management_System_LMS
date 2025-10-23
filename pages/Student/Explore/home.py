@@ -81,7 +81,9 @@ class HomePage:
         books = []
         for i in range (len(title_list)):
             title = title_list[i]
-            copies_available = mysql_tables.get_copies_of_book(title)
+            author = author_list[i]
+            edition = edition_list[i]
+            copies_available = mysql_tables.get_copies_of_book(title,author,edition)
             book = book_icon.Book_icon(self.books_frame,
                                        logo=cover_img_list[i],
                                        book_name=title_list[i],

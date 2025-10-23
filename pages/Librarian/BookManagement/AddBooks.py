@@ -13,16 +13,16 @@ class AddPage:
         self.frame = CTkFrame(self.master,
                               fg_color="#ffffff",
                               bg_color="#ffffff")
- 
+    
         self.book_details_frame = CTkFrame(self.frame,
                                            fg_color="#ffffff",
-                                           border_color="#FFFFFF",
-                                           border_width=0)
+                                           border_color="#EDEBEB",
+                                           border_width=1)
         self.upper_frame = CTkFrame(self.book_details_frame,
                                     fg_color="transparent")
         self.heading = CTkLabel(self.upper_frame,text="Enter The Following Details",font=("roboto",12,"bold"))
-        self.heading.pack(pady=5)
-        self.upper_frame.pack(side="top",pady=5)
+        self.heading.pack(pady=10,padx=20,side="left")
+        self.upper_frame.pack(side="top",pady=5,fill="x")
         
         self.left_frame = CTkFrame(self.book_details_frame,
                                    fg_color="transparent")
@@ -44,7 +44,8 @@ class AddPage:
                                         font=("roboto",12),
                                         border_width=0,
                                         button_color=colors.base_color,
-                                        dropdown_fg_color="#ffffff")
+                                        dropdown_fg_color="#ffffff",
+                                        fg_color="#F7F8FF")
         self.description = Description(self.right_frame)
         self.description.generate_description_btn.configure(command=lambda e=None: self.generate_book_description(e))
 
@@ -75,15 +76,24 @@ class AddPage:
         self.change_logo_btn.pack(pady=2)
         self.right_frame.pack(side="right",padx=5,pady=5)
 
-        self.book_details_frame.pack(padx=20,pady=50)
+        self.book_details_frame.pack(padx=10,pady=100)
+        # self.book_details_frame.place(x=10,y=10)
 
-        self.add_book_btn = CTkButton(self.frame,
+        self.add_book_btn = CTkButton(self.upper_frame,
                                       text="Add Book",  
                                         width=100,
+                                        height=40,
                                         command=self.add_book,
                                         fg_color=colors.base_color,
                                         corner_radius=2)
-        self.add_book_btn.pack(pady=0)
+        self.add_book_btn.pack(padx=20,pady=10,side='right')
+        # self.create_tables_frame()
+
+    def create_tables_frame(self):
+        self.tables_frame = CTkFrame(self.frame,
+                                     fg_color="#F7F8FF",
+                                     width=300)
+        self.tables_frame.pack(side="right",padx=0,pady=0,fill="y")
 
 # clear fields method.................................................
     def clear_fields(self):
@@ -107,6 +117,28 @@ class AddPage:
             self.cover_img.entry.insert(0,file_path)
             logo_img = CTkImage(Image.open(file_path),size=(1.3*180,1.3*280))
             self.logo_img_label.configure(image=logo_img)
+
+    def check_if_book_exists(self,title,author,edition):
+        mysql_tables.cur.execute("select * from books where title=%s and author=%s and edition=%s",(title,author,edition))
+        result = mysql_tables.cur.fetchall()
+        if len(result)>0:
+            return True
+        return False
+    
+    def update_or_retain_description(self,title,author,edition,new_description):
+        if self.check_if_book_exists(title,author,edition):
+            if new_description =="No Description Available":
+                mysql_tables.cur.execute("select description from books where title=%s and author=%s and edition=%s",(title,author,edition))
+                result = mysql_tables.cur.fetchall()
+                description =  result[0][0]
+                return description
+            else:
+                mysql_tables.cur.execute("update books set description=%s where title=%s and author=%s and edition=%s",(new_description,title,author,edition))
+                mysql_tables.mydb.commit()
+                return new_description
+        else:
+            return new_description
+
         
     def add_book(self):
         title = self.title.entry.get()
@@ -116,13 +148,14 @@ class AddPage:
         cover_img = self.cover_img.entry.get()
         category = self.category_list.get()
         description = self.description.description_entry.get("1.0","end-1c")
-        if title=="" or author=="" or edition=="" or total_copies=="" or category=="":
+        if title=="" or author=="" or edition=="" or total_copies=="" or not(total_copies.isdigit()) or category=="":
             messagebox.showerror("error","All Fields are Required")
         else:
+            cover_img = cover_img if cover_img!="" else "resources/Books/cover page.png"
+            description = description if description!="" else "No Description Available"
+            description = self.update_or_retain_description(title,author,edition,description)
             for i in range(int(total_copies)):
                 book_id = mysql_tables.generate_book_id()
-                cover_img = cover_img if cover_img!="" else "resources/Books/cover page.png"
-                description = description if description!="" else "No Description Available"
                 mysql_tables.insert_book(book_id,title,author,edition,category,"Available","1",cover_img,description)
             messagebox.showinfo("Success","Book Added Successfully")
             self.clear_fields()
@@ -179,8 +212,8 @@ class Description:
                                             width=400,
                                             height=100,
                                             border_color=colors.base_color,
-                                            border_width=0)
-                                            # fg_color="#F5F5F5")
+                                            border_width=0,
+                                            fg_color="#F7F8FF")
         self.generate_description_btn = CTkButton(self.frame,
                                                   text="Generate Description",
                                                   width=400,
@@ -203,7 +236,8 @@ class Form:
         self.entry = CTkEntry(master,
                               width=200,
                               font=("roboto",12),
-                              border_width=0)
+                              border_width=0,
+                              fg_color="#F7F8FF")
     def grid(self,row):
         self.label.grid(row=row,column=0,padx=10,pady=5)
         self.entry.grid(row=row,column=1,padx=10,pady=5)

@@ -148,13 +148,13 @@ class Form:
         self.frame.grid(row=row, column=column, padx=padx, pady=pady, sticky=sticky)
 
 
-class LibrarianSignupApp(ctk.CTk):
-    def __init__(self):
-        super().__init__()
-        
-        self.title("Librarian Signup")
-        self.geometry("700x850") 
-        ctk.set_appearance_mode("System")
+class LibrarianSignupApp(ctk.CTkFrame):
+    def __init__(self,master):
+        super().__init__(master)
+        self.master = master
+        # self.title("Librarian Signup")
+        # self.geometry("700x850") 
+        # ctk.set_appearance_mode("System")
 
         self.main_frame = ctk.CTkFrame(self, 
                                        fg_color="white", 
