@@ -36,6 +36,7 @@ def create_tables():
     "description varchar(1024)" \
     ")")
 
+    # Students Table...............
     cur.execute(""" 
     create table if not exists students(
         student_id varchar(30) primary key,
@@ -49,6 +50,7 @@ def create_tables():
         department varchar(50)
     )""")
 
+    # Faculty Table..................
     cur.execute(""" 
     create table if not exists faculty(
         faculty_id varchar(30) primary key,
@@ -62,6 +64,7 @@ def create_tables():
         department varchar(50)
     )""")
 
+    #Scholars Table.................
     cur.execute(""" 
     create table if not exists scholars(
         scholar_id varchar(30) primary key,
@@ -74,12 +77,14 @@ def create_tables():
         password varchar(30),
         topic varchar(50))""")
     
+    #Users Table........................
     cur.execute(""" 
         create table if not exists users(
             user_id varchar(30),
             email varchar(100),
             role varchar(30));""")
     
+    #Favourites table......................
     cur.execute("""create table if not exists favourites(
                     user_id varchar(30),
                     title varchar(30),
@@ -87,6 +92,7 @@ def create_tables():
                     edition int
                 )""")
     
+    # Reserve Books Table...................
     cur.execute("""
                 create table if not exists reserve_books(
                     user_id varchar(30),
@@ -94,6 +100,16 @@ def create_tables():
                     transaction_date date
                 )
             """)
+    
+    # Issue Books Table..........................
+    cur.execute("""
+                create table if not exists issue_books(
+                    book_id int,
+                    user_id varchar(30),
+                    issue_date date,
+                    return_date date,
+                    status varchar(30)
+                )""")
 
     mydb.commit()
 
