@@ -167,7 +167,8 @@ def get_book_by_title():
     return cur.fetchall()
 
 def get_copies_of_book(title,author,edition):
-    cur.execute(f"select count(book_id) from books where title='{title}' and author = '{author}' and edition = {edition} and available = 1 and status = 'Available';")
+    mydb.commit()
+    cur.execute("select count(book_id) from books where title=%s and author = %s and edition = %s and available = 1 and status = 'Available';",(title,author,edition))
     return cur.fetchall()[0][0]
 #/ Books..................................................................................
 

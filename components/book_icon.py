@@ -4,6 +4,7 @@ from tkinter import *
 from PIL import Image
 from backend import favourites_logic
 from backend import reserve_book_logic
+from backend import mysql_tables
 from tkinter import messagebox
 
 class color:
@@ -187,6 +188,9 @@ class Book_icon:
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/reserve.png"),size=(17,17)))
             self.reserve_btn.configure(text="                Reserve")
             self.is_reserved = False
+            self.copies = mysql_tables.get_copies_of_book(self.title,self.author,self.edition)
+            self.copies_label.configure(text=f"Copies Available : {self.copies}")
+            print(f"copies of {self.title} = {self.copies}")
         else:
             if not reserve_book_logic.reserve_book(self.user,self.title,self.author,self.edition):
                 messagebox.showerror("Can't reserve book","Not enough copies available to reserve")
@@ -195,6 +199,9 @@ class Book_icon:
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(17,17)))
             self.reserve_btn.configure(text="                Reserved")
             self.is_reserved = True
+            self.copies = mysql_tables.get_copies_of_book(self.title,self.author,self.edition)
+            self.copies_label.configure(text=f"Copies Available : {self.copies}")
+            print(f"copies of {self.title} = {self.copies}")
 
 
 # / Click Functions ............
