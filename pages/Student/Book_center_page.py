@@ -8,7 +8,8 @@ from pages.Student.BookCenter import Donate_book
 from pages.Student.BookCenter import Request_book
 
 class Page:
-    def __init__(self,master,sidebar_control:sidebar.Sidebar_control):
+    def __init__(self,master,sidebar_control:sidebar.Sidebar_control,student_record):
+        self.student_record = student_record
         self.master = master
         self.current_tab = "Request"
         self.sidebar_control = sidebar_control

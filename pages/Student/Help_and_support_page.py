@@ -3,7 +3,8 @@ from customtkinter import *
 from PIL import Image
 
 class Page:
-    def __init__(self,master,sidebar_control):
+    def __init__(self,master,sidebar_control,student_record):
+        self.student_record = student_record
         self.master = master
         self.sidebar_control = sidebar_control
         self.frame = CTkFrame(self.master,

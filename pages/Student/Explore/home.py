@@ -10,7 +10,8 @@ from components import category_folders
 from components import colors
 
 class HomePage:
-    def __init__(self,master):
+    def __init__(self,master,student_record):
+        self.student_record = student_record
         self.master = master
         self.frame = CTkFrame(self.master,
                               fg_color="#ffffff",
@@ -76,8 +77,8 @@ class HomePage:
             title_list.append(book[0])
             author_list.append(book[1])
             edition_list.append(book[2])
-            description_list.append(book[7])
-            cover_img_list.append(book[6])
+            description_list.append(book[5])
+            cover_img_list.append(book[4])
         books = []
         for i in range (len(title_list)):
             title = title_list[i]
@@ -91,7 +92,8 @@ class HomePage:
                                        edition=edition_list[i],
                                        copies_available=copies_available,
                                        favourite=False,
-                                       reserved=False)
+                                       reserved=False,
+                                       user=self.student_record["student id"])
             book.description(description_list[i])
             books.append(book)
         # print(books)
@@ -155,7 +157,7 @@ class HomePage:
         DrawBooks.draw_books(self.books_frame,books)
 
     def get_books_by_category(self,category):
-        mysql_tables.cur.execute(f"""SELECT distinct title,author,edition,category,status,available,cover_img,description from books where category = '{category}';""")
+        mysql_tables.cur.execute(f"""SELECT distinct title,author,edition,category,cover_img,description from books where category = '{category}';""")
         books_data = mysql_tables.cur.fetchall()
         title_list = []
         author_list = []
@@ -166,12 +168,12 @@ class HomePage:
             title_list.append(book[0])
             author_list.append(book[1])
             edition_list.append(book[2])
-            description_list.append(book[7])
-            cover_img_list.append(book[6])
+            description_list.append(book[5])
+            cover_img_list.append(book[4])
         books = []
         for i in range (len(title_list)):
             title = title_list[i]
-            copies_available = mysql_tables.get_copies_of_book(title)
+            copies_available = mysql_tables.get_copies_of_book(title,author_list[i],edition_list[i])
             book = book_icon.Book_icon(self.books_frame,
                                        logo=cover_img_list[i],
                                        book_name=title_list[i],
@@ -179,7 +181,8 @@ class HomePage:
                                        edition=edition_list[i],
                                        copies_available=copies_available,
                                        favourite=False,
-                                       reserved=False)
+                                       reserved=False,
+                                       user=self.student_record["student id"])
             book.description(description_list[i])
             books.append(book)
         return books
@@ -194,7 +197,7 @@ class HomePage:
         DrawBooks.draw_books(self.books_frame,books)
     
     def get_books_by_title_or_author(self,search_text):
-        mysql_tables.cur.execute(f"""SELECT distinct title,author,edition,category,status,available,cover_img,description from books where title LIKE '%{search_text}%' OR author LIKE '%{search_text}%';""")
+        mysql_tables.cur.execute(f"""SELECT distinct title,author,edition,category,cover_img,description from books where title LIKE '%{search_text}%' OR author LIKE '%{search_text}%';""")
         books_data = mysql_tables.cur.fetchall()
         title_list = []
         author_list = []
@@ -205,12 +208,12 @@ class HomePage:
             title_list.append(book[0])
             author_list.append(book[1])
             edition_list.append(book[2])
-            description_list.append(book[7])
-            cover_img_list.append(book[6])
+            description_list.append(book[5])
+            cover_img_list.append(book[4])
         books = []
         for i in range (len(title_list)):
             title = title_list[i]
-            copies_available = mysql_tables.get_copies_of_book(title)
+            copies_available = mysql_tables.get_copies_of_book(title,author_list[i],edition_list[i])
             book = book_icon.Book_icon(self.books_frame,
                                        logo=cover_img_list[i],
                                        book_name=title_list[i],
@@ -218,7 +221,8 @@ class HomePage:
                                        edition=edition_list[i],
                                        copies_available=copies_available,
                                        favourite=False,
-                                       reserved=False)
+                                       reserved=False,
+                                       user=self.student_record["student id"])
             book.description(description_list[i])
             books.append(book)
         return books

@@ -14,8 +14,9 @@ from pages.Student.Doubt import Solved_by_me
 
 
 class Page:
-    def __init__(self,master,sidebar_control:sidebar.Sidebar_control):
+    def __init__(self,master,sidebar_control:sidebar.Sidebar_control,student_record):
         self.master = master
+        self.student_record = student_record
         self.current_tab = "All Doubts"
         self.sidebar_control = sidebar_control
         self.frame = CTkFrame(self.master,

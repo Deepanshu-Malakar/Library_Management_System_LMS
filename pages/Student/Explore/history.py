@@ -3,7 +3,8 @@ from customtkinter import *
 from PIL import Image
 
 class HistoryPage:
-    def __init__(self,master):
+    def __init__(self,master,student_record):
+        self.student_record = student_record
         self.master = master
         self.frame = CTkFrame(self.master,
                               fg_color="#ffffff",

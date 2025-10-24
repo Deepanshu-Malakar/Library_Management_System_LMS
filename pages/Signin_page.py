@@ -210,13 +210,13 @@ class Signup:
             
     # Librarian role......................................
         elif self.role.lower() == "librarian":
-            librarian = mysql_tables.find_librarian(username)
+            librarian = mysql_tables.find_librarian(userid)
             if not librarian:
                 messagebox.showerror("Failed","Username or password wrong")
             elif not librarian["password"] == password:
                 messagebox.showerror("Failed","Username or password wrong")
             else:
-                user_id = username
+                user_id = userid
                 username = librarian["first_name"]
                 messagebox.showinfo("success", f"account logged in for {username}")
                 self.page_frame.pack_forget()

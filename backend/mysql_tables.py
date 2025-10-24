@@ -79,6 +79,21 @@ def create_tables():
             user_id varchar(30),
             email varchar(100),
             role varchar(30));""")
+    
+    cur.execute("""create table if not exists favourites(
+                    user_id varchar(30),
+                    title varchar(30),
+                    author varchar(30),
+                    edition int
+                )""")
+    
+    cur.execute("""
+                create table if not exists reserve_books(
+                    user_id varchar(30),
+                    book_id int,
+                    transaction_date date
+                )
+            """)
 
     mydb.commit()
 
@@ -147,12 +162,12 @@ def generate_book_id():
         return data+1
 
 def get_book_by_title():
-    cur.execute(f"""SELECT distinct title,author,edition,category,status,available,cover_img,description from books;
+    cur.execute(f"""SELECT distinct title,author,edition,category,cover_img,description from books;
                 """)
     return cur.fetchall()
 
 def get_copies_of_book(title,author,edition):
-    cur.execute(f"select count(*) from books where title='{title}' and edition = '{edition}' and author = '{author}'")
+    cur.execute(f"select count(book_id) from books where title='{title}' and author = '{author}' and edition = {edition} and available = 1 and status = 'Available';")
     return cur.fetchall()[0][0]
 #/ Books..................................................................................
 

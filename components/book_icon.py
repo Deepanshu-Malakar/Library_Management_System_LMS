@@ -2,6 +2,9 @@ from customtkinter import *
 from tkinter import *
 # from components import colors as c
 from PIL import Image
+from backend import favourites_logic
+from backend import reserve_book_logic
+from tkinter import messagebox
 
 class color:
     def __init__(self):
@@ -21,7 +24,7 @@ set_appearance_mode("light")
 
 
 class Book_icon:
-    def __init__(self,master:CTkFrame,logo:str,book_name:str,author:str,edition:int,copies_available,favourite:bool,reserved:bool):
+    def __init__(self,master:CTkFrame,logo:str,book_name:str,author:str,edition:int,copies_available,favourite:bool,reserved:bool,user:str):
         self.frame = CTkFrame(master=master,
                               width=360,
                               height=280,
@@ -29,13 +32,14 @@ class Book_icon:
                               corner_radius=5,
                               border_color="#DAD2DF",
                               border_width=1)
+        self.user = user
         self.title = book_name
         self.author = author
         self.logo_img = CTkImage(Image.open(logo),size=(180,280))
         self.edition = edition
         self.copies = copies_available
-        self.is_favourite = favourite
-        self.is_reserved = reserved
+        self.is_favourite = favourites_logic.check_if_favourites(self.user,self.title,self.author,self.edition)
+        self.is_reserved = reserve_book_logic.check_if_book_reserved(self.user,self.title,self.author,self.edition)
         self.create_book()
         self.description()
 
@@ -167,17 +171,27 @@ class Book_icon:
     def favourite_btn_click(self):
         if self.is_favourite:
             self.favourite_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/favourites.png"),size=(17,17)))
+            favourites_logic.delete_from_favourites(self.user,self.title,self.author,self.edition)
             self.is_favourite = False
         else:
             self.favourite_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unfavourite2.png"),size=(17,17)))
+            favourites_logic.add_to_favourites(self.user,self.title,self.author,self.edition)
             self.is_favourite = True
 
     def reserve_btn_click(self):
         if self.is_reserved:
+            if not reserve_book_logic.unreserve_book(self.user,self.title,self.author,self.edition):
+                messagebox.showerror("Cant UnReserve","You cannot unreserve this book")
+                return
+            # reserve_book_logic.unreserve_book(self.user,self.title,self.author,self.edition)
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/reserve.png"),size=(17,17)))
             self.reserve_btn.configure(text="                Reserve")
             self.is_reserved = False
         else:
+            if not reserve_book_logic.reserve_book(self.user,self.title,self.author,self.edition):
+                messagebox.showerror("Can't reserve book","Not enough copies available to reserve")
+                return
+            # reserve_book_logic.reserve_book(self.user,self.title,self.author,self.edition)
             self.reserve_btn_img_label.configure(image = CTkImage(Image.open("resources/icons/unreserve2.png"),size=(17,17)))
             self.reserve_btn.configure(text="                Reserved")
             self.is_reserved = True

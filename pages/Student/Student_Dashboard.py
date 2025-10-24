@@ -66,7 +66,7 @@ class Student_Dashboard:
         self.upper_frame.pack(padx=0,pady=0,side="top",fill="x")   
         self.create_navbar()
         self.create_status_bar()
-        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control,self.student_record)
         self.page_frame.pack()
             
     def create_navbar(self):
@@ -182,28 +182,28 @@ class Student_Dashboard:
         self.unselect_all_tabs()
         self.explore_tab.click()
         self.page_frame.pack_forget()
-        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control,self.student_record)
         self.page_frame.pack()
 
     def open_bookcenter_tab(self,e):
         self.unselect_all_tabs()
         self.Book_center_tab.click()
         self.page_frame.pack_forget()
-        self.page_frame = Book_center_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Book_center_page.Page(self.frame,self.sidebar_control,self.student_record)
         self.page_frame.pack()
 
     def open_doubt_section_tab(self,e):
         self.unselect_all_tabs()
         self.Doubt_tab.click()
         self.page_frame.pack_forget()
-        self.page_frame = Doubt_section_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Doubt_section_page.Page(self.frame,self.sidebar_control,self.student_record)
         self.page_frame.pack()
 
     def open_help_tab(self,e):
         self.unselect_all_tabs()
         self.Help_tab.click()
         self.page_frame.pack_forget()        
-        self.page_frame = Help_and_support_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Help_and_support_page.Page(self.frame,self.sidebar_control,self.student_record)
         self.page_frame.pack()
 
 # / tabs opening functions..................
