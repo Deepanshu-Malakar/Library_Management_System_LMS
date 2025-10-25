@@ -54,7 +54,7 @@ def user_limit_exceeded(user_id):
     cur.execute(f"select * from issue_books where user_id = '{user_id}' and status != 'Returned'")
     books_reserved = len(cur.fetchall())
     if books_reserved >= max_issues:
-        messagebox.showerror("Users Issue Limit Exceeded, return the previously issued books to continue")
+        messagebox.showerror("Error","Users Issue Limit Exceeded, return the previously issued books to continue")
         return True
     else:
         return False
