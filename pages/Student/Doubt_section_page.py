@@ -24,7 +24,7 @@ class Page:
                               corner_radius=0)
         self.create_sidebar()
         self.apply_page_controls()
-        self.page_frame = All_doubts.AllDoubtsPage(self.frame)
+        self.page_frame = All_doubts.AllDoubtsPage(self.frame,student_record)
         self.page_frame.pack()
 
 
@@ -55,31 +55,31 @@ class Page:
 
     def open_all_doubts_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = All_doubts.AllDoubtsPage(self.frame)
+        self.page_frame = All_doubts.AllDoubtsPage(self.frame,self.student_record)
         self.page_frame.pack()
         self.current_tab = "All Doubts"
 
     def open_my_doubts_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = My_doubts.MyDoubtsPage(self.frame)
+        self.page_frame = My_doubts.MyDoubtsPage(self.frame,self.student_record)
         self.page_frame.pack()
         self.current_tab = "My Doubts"
 
     def open_solved_by_me_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = Solved_by_me.SolvedByMePage(self.frame)
+        self.page_frame = Solved_by_me.SolvedByMePage(self.frame,self.student_record)
         self.page_frame.pack()
         self.current_tab = "Solved by me"
 
     def open_ask_doubt_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = Ask_doubt.AskDoubtPage(self.frame)
+        self.page_frame = Ask_doubt.AskDoubtPage(self.frame,self.student_record)
         self.page_frame.pack()
         self.current_tab = "Ask Doubt"
 
     def open_leaderboard_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = Leaderboard.LeaderboardPage(self.frame)
+        self.page_frame = Leaderboard.LeaderboardPage(self.frame,self.student_record)
         self.page_frame.pack()
         self.current_tab = "Leaderboard"
     # / Page changing controls...........................................

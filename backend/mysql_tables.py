@@ -112,7 +112,7 @@ def create_tables():
                 )""")
     
     cur.execute("""create table if not exists doubts(
-                    doubt_id int primary_key,
+                    doubt_id int primary key,
                     user_id varchar(30),
                     doubt text
                 )""")
