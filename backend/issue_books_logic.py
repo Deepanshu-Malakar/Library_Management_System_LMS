@@ -159,18 +159,34 @@ def search_issued_books(search_text):
 
 
 def remove_from_issued_books(user_id,book_id):
-    cur.execute("update issue_books set status = 'Returned' where user_id = %s and book_id = %s and status != 'Returned'",(user_id,book_id))
+    cur.execute("update issue_books set status = 'Returned',return_date = curdate() where user_id = %s and book_id = %s and status != 'Returned'",(user_id,book_id))
     cur.execute("update books set available = 1, status = 'Available' where book_id = %s",(book_id,))
     mydb.commit()
 
+def mark_as_due_book():
+    mydb.commit()
+    cur.execute("update issue_books set status = 'Due' where status != 'Returned' and return_date < curdate()")
+    mydb.commit()
+
+
 def pending_fine(user_id):
-    f = 0
-    return f
+    query = """
+        SELECT 
+            SUM(GREATEST(DATEDIFF(CURDATE(), return_date), 0) * 5) AS total_fine
+        FROM issue_books
+        WHERE status = 'Due' AND user_id = %s;
+    """
+    cur.execute(query, (user_id,))
+    result = cur.fetchone()
+    if result[0] is None:
+        return 0
+    return result[0]
+
 
 
 def return_book(user_id,title,author,edition):
     mydb.commit()
-    if pending_fine(user_id):
+    if pending_fine(user_id) > 0:
         messagebox.showerror("Error",f"You have a fine pending of Rs{pending_fine(user_id)}.00 Please pay the fine to continue")
         return False
     cur.execute("select i.book_id from issue_books i, books b where b.book_id = i.book_id and i.user_id = %s and b.title = %s and b.author = %s and b.edition = %s and i.status != 'Returned'",(user_id,title,author,edition))

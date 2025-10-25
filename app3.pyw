@@ -3,8 +3,11 @@ from tkinter import *
 from pages import Welcome_page
 import pywinstyles
 from backend import mysql_tables
+from backend import issue_books_logic
+
 
 mysql_tables.create_tables()
+issue_books_logic.mark_as_due_book()
 set_appearance_mode("light")
 if __name__ == "__main__":
     mysql_tables.create_tables()
