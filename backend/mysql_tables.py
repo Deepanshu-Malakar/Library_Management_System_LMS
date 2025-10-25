@@ -110,6 +110,12 @@ def create_tables():
                     return_date date,
                     status varchar(30)
                 )""")
+    
+    cur.execute("""create table if not exists doubts(
+                    doubt_id int primary_key,
+                    user_id varchar(30),
+                    doubt text
+                )""")
 
     mydb.commit()
 
