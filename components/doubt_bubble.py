@@ -1,18 +1,20 @@
 from tkinter import *
 from customtkinter import *
-# from backend import doubts_logic  # keep as is
+from PIL import Image
 set_appearance_mode("light")
+from backend import doubts_logic
+from components import colors
 
 
 class Doubt:
-    def __init__(self, master, doubt_id, user_id, doubt, solutions):
+    def __init__(self, master, doubt_id, user_id, doubt,my_id):
         self.master = master
+        self.my_id = my_id
         self.doubt_id = doubt_id
         self.user_id = user_id
-        self.user_name = "Ankit"  # fetched from backend ideally
-        self.role = "Student"
+        self.user_name,self.role = doubts_logic.get_username_role(self.user_id)
         self.doubt = doubt
-        self.solutions: list = solutions
+        self.solutions: list = doubts_logic.get_solutions(self.doubt_id)
         self.create_bubble()
 
     def create_bubble(self):
@@ -29,7 +31,7 @@ class Doubt:
         # Header
         self.header = CTkLabel(
             self.frame,
-            text=f"💭 Doubt #{self.doubt_id} — by {self.user_name} ({self.role})",
+            text=f"Doubt #{self.doubt_id} — by {self.user_name} ({self.role})",
             font=("Roboto", 14, "bold"),
             text_color="#111827",
             anchor="w",
@@ -39,7 +41,7 @@ class Doubt:
         # Doubt text
         self.doubt_label = CTkLabel(
             self.frame,
-            text=f"❓ {self.doubt}",
+            text=f"{self.doubt}",
             font=("Roboto", 13),
             wraplength=700,
             text_color="#1f2937",
@@ -53,15 +55,15 @@ class Doubt:
         divider.pack(fill="x", padx=15, pady=(0, 10))
 
         # Solutions section
-        self.solutions_container = CTkFrame(self.frame, fg_color="transparent")
+        self.solutions_container = CTkFrame(self.frame, fg_color="transparent",height=10)
         self.solutions_container.pack(fill="x", padx=10)
 
         if self.solutions:
             CTkLabel(
                 self.solutions_container,
-                text="💡 Answers / Solutions",
+                text="Solutions",
                 font=("Roboto", 13, "bold"),
-                text_color="#2563eb",
+                text_color=colors.base_color,
                 anchor="w",
             ).pack(padx=10, pady=(5, 10), fill="x")
 
@@ -119,7 +121,7 @@ class Doubt:
             text="Send",
             height=45,
             width=120,
-            fg_color="#2563eb",
+            fg_color=colors.base_color,
             hover_color="#1d4ed8",
             command=self.send_solution,
         )
@@ -131,12 +133,9 @@ class Doubt:
         if not solution_text:
             return
 
-        # Call your backend logic here (don’t change it)
-        # Example:
-        # doubts_logic.insert_solution(self.doubt_id, self.user_id, solution_text)
-
-        # Just show it immediately on UI for now
-        self.add_solution(self.user_id, self.user_name, self.role, solution_text)
+        doubts_logic.answer_doubt(self.my_id,self.doubt_id,solution_text)
+        my_name,my_role = doubts_logic.get_username_role(self.my_id)
+        self.add_solution(self.my_id, my_name, my_role, solution_text)
         self.solution_entry.delete(0, END)
 
     def pack(self):
@@ -158,3 +157,5 @@ if __name__ == "__main__":
     doubt.pack()
 
     root.mainloop()
+
+

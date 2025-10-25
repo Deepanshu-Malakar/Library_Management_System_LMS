@@ -116,6 +116,12 @@ def create_tables():
                     user_id varchar(30),
                     doubt text
                 )""")
+    
+    cur.execute("""create table if not exists solutions(
+                    doubt_id int,
+                    user_id varchar(30),
+                    solution text
+                )""")
 
     mydb.commit()
 
