@@ -44,7 +44,7 @@ class Faculty_Dashboard:
         pywinstyles.change_header_color(self.master,colors().base_color)
         
         self.faculty_record = faculty_record
-        self.username = faculty_record["faculty id"]
+        self.username = faculty_record["first name"]
         self.frame = CTkFrame(self.master,
                               corner_radius=0)
         self.create_dashboard()
