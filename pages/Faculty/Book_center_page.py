@@ -18,7 +18,7 @@ class Page:
                               corner_radius=0)
         self.create_sidebar()  
         self.apply_page_controls()
-        self.page_frame = Request_book.RequestBookPage(self.frame)
+        self.page_frame = Request_book.RequestBookPage(self.frame,self.faculty_record)
         self.page_frame.pack()
 
 
@@ -47,7 +47,7 @@ class Page:
 
     def open_request_book_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = Request_book.RequestBookPage(self.frame)
+        self.page_frame = Request_book.RequestBookPage(self.frame,self.faculty_record)
         self.page_frame.pack()
         self.current_tab = "Request"
 

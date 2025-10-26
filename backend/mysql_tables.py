@@ -111,18 +111,30 @@ def create_tables():
                     status varchar(30)
                 )""")
     
+
+    # Doubts Table......................
     cur.execute("""create table if not exists doubts(
                     doubt_id int primary key,
                     user_id varchar(30),
                     doubt text
                 )""")
     
+    # Solutions Table.........................
     cur.execute("""create table if not exists solutions(
                     doubt_id int,
                     user_id varchar(30),
                     solution text
                 )""")
-
+    # Request Books Table......................
+    cur.execute("""create table if not exists request_book(
+                    user_id varchar(30),
+                    title varchar(30),
+                    author varchar(30),
+                    edition int,
+                    category varchar(30),
+                    cover_img varchar(512),
+                    description varchar(1024) 
+                )""")
     mydb.commit()
 
 
