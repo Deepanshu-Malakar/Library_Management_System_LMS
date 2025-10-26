@@ -223,7 +223,7 @@ class Signup:
                 self.frame = Librarian_Dashboard.Librarian_Dashboard(self.master,username,user_id)
                 self.frame.pack()
     
-    # / Librarian role...............................................
+    # / Faculty role...............................................
         elif self.role.lower() == "faculty":
             faculty_record = register_users.get_faculty(userid)
             if len(faculty_record)<1:
@@ -237,9 +237,20 @@ class Signup:
             self.page_frame.pack_forget()
             self.frame = Faculty_Dashboard.Faculty_Dashboard(self.master,faculty_record)
             self.frame.pack()
+
+    # Authenticate Scholar
         elif self.role.lower() == "scholar":
+            scholar_record = register_users.get_scholar(userid)
+            if len(scholar_record)<1:
+                messagebox.showerror("Error","Invalid username or password")
+                return
+            if password != scholar_record["password"]:
+                messagebox.showerror("Error","Invalid username or password")
+                return
+            messagebox.showinfo("Success",f"Login for {scholar_record['first name']}")
+            
             self.page_frame.pack_forget()
-            self.frame = Scholar_Dashboard.Scholar_Dashboard(self.master,username)
+            self.frame = Scholar_Dashboard.Scholar_Dashboard(self.master,scholar_record)
             self.frame.pack()
 
         # self.confirm_entry.delete(0, END)

@@ -105,7 +105,7 @@ class UserCard:
 
         elif self.role.lower() == "scholar":
             doubts_logic.cur.execute(
-                "select scholar_id,first_name,last_name,phone_no,DOB,gender,email,topic from scholars where student_id = %s",
+                "select scholar_id,first_name,last_name,phone_no,DOB,gender,email,topic from scholars where scholar_id = %s",
                 (self.user_id,),
             )
             self.data = doubts_logic.cur.fetchall()

@@ -38,13 +38,15 @@ class colors:
         self.folder_filled = "#5165AA"
 
 class Scholar_Dashboard:
-    def __init__(self,master:CTk,username):
+    def __init__(self,master:CTk,scholar_record):
+        self.scholar_record = scholar_record
+        self.scholar_id = self.scholar_record["scholar id"]
         self.current_tab = "Explore"
         self.master = master
         self.master.state("zoomed")
         pywinstyles.change_header_color(self.master,colors().base_color)
         
-        self.username = username
+        self.username = self.scholar_record["first name"]
         self.frame = CTkFrame(self.master,
                               corner_radius=0)
         self.create_dashboard()

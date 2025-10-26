@@ -1,5 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
+from tkinter import messagebox
+from backend import register_users
 
 class colors:
     def __init__(self):
@@ -110,23 +112,23 @@ class Form:
         
         formatted = ""
         
-        if len(cleaned) >= 2:
-            formatted += cleaned[0:2] + "/"
+        if len(cleaned) >= 4:
+            formatted += cleaned[0:4] + "/"
         else:
             formatted += cleaned
             
-        if len(cleaned) >= 4:
-            formatted += cleaned[2:4] + "/"
-        elif len(cleaned) > 2:
-            formatted += cleaned[2]
+        if len(cleaned) >= 6:
+            formatted += cleaned[4:6] + "/"
+        elif len(cleaned) > 4:
+            formatted += cleaned[4]
             
-        if len(cleaned) > 4:
-            formatted += cleaned[4:8]
+        if len(cleaned) > 6:
+            formatted += cleaned[6:8]
 
         if formatted.endswith('/') and len(formatted.replace('/', '')) < len(cleaned):
-            if len(formatted) == 3 and len(cleaned) == 2:
+            if len(formatted) == 4 and len(cleaned) == 5:
                 formatted = formatted[:-1]
-            elif len(formatted) == 6 and len(cleaned) == 4:
+            elif len(formatted) == 8 and len(cleaned) == 6:
                 formatted = formatted[:-1]
 
         self.entry_var.set(formatted)
@@ -286,6 +288,43 @@ class ScholarSignupApp(ctk.CTkFrame):
         if len(password) < 8 or not any(c.isdigit() for c in password) or not any(c.isalpha() for c in password):
             self.message_label.configure(text="Error: Password must be at least 8 characters and contain both letters and numbers.", text_color="red")
             return
+
+
+        # Check for valid user.............
+        if not register_users.check_if_user_exist(data["Scholar ID"]):
+            messagebox.showerror("Error","User Invalid")
+            return
+        
+        # check if already registered.........
+        sch_id = data["Scholar ID"]
+        register_users.cur.execute(f"select * from scholars where scholar_id = '{sch_id}'")
+        user_exist = register_users.cur.fetchall()
+        if len(user_exist)>0:
+            messagebox.showerror("Error","Scholar Already Registered")
+            return
+        
+        # email does not match...........
+        register_users.cur.execute(f"select email,role from users where user_id = '{sch_id}'")
+        email,role = register_users.cur.fetchall()[0]
+
+        if email != data["Email"]:
+            messagebox.showerror("Error","Email does not match")
+            return
+        
+        if role.lower() != 'scholar':
+            messagebox.showerror("Error","User is not a Scholar")
+            return
+        
+        first_name = data["Full Name"].split()[0]
+        if len(data["Full Name"]) > 0:
+            last_name = data["Full Name"].split()[1]
+        else:
+            last_name = ""
+
+        register_users.insert_scholar(data["Scholar ID"],first_name,last_name,data["Phone No."],data["Date of Birth"],"M" if data["Gender"].lower() == 'male' else "F",data["Email"],data["Password"],data["Research Topic"])
+
+        messagebox.showinfo("Success","Scholar registered successfully")  
+
 
         # If all checks pass
         success_message = f"Signup Successful for Scholar: {data['Full Name']}!"
