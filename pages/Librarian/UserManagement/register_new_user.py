@@ -3,6 +3,7 @@ from customtkinter import *
 from PIL import Image
 from backend import register_users
 from tkinter import messagebox
+from components import colors as c
 set_appearance_mode("light")
 
 class colors:
@@ -10,7 +11,7 @@ class colors:
         self.purple = "#613287"
         self.pink = "#D0A2E9"
         self.grey = "#EAE6E6"
-        self.base_color = "#4153A3"
+        self.base_color = c.new_button_color# "#4153A3"
 
 
 class Form:
@@ -101,7 +102,6 @@ class RegisterPage:
                                 fg_color="#f5f8ff",
                                 dropdown_fg_color="#ffffff",
                                 border_width=0,
-                                button_color=colors().base_color,
                                 text_color=colors().base_color,
                                 dropdown_text_color=colors().base_color,
                                 button_hover_color="#173957")
@@ -121,6 +121,9 @@ class RegisterPage:
         user_id = self.user_id.entry.get()
         email = self.email.entry.get()
         role = self.role.get()
+        if user_id == "" or email == "" or role == "":
+            messagebox.showerror("Empty Fields","Fill All the information")
+            return False
 
         user_exist = register_users.check_if_user_exist(user_id)
         if user_exist:

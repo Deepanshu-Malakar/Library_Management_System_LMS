@@ -37,13 +37,14 @@ class colors:
 
 
 class Faculty_Dashboard:
-    def __init__(self,master:CTk,username):
+    def __init__(self,master:CTk,faculty_record):
         self.current_tab = "Explore"
         self.master = master
         self.master.state("zoomed")
         pywinstyles.change_header_color(self.master,colors().base_color)
         
-        self.username = username
+        self.faculty_record = faculty_record
+        self.username = faculty_record["faculty id"]
         self.frame = CTkFrame(self.master,
                               corner_radius=0)
         self.create_dashboard()
@@ -64,7 +65,7 @@ class Faculty_Dashboard:
         self.upper_frame.pack(padx=0,pady=0,side="top",fill="x")   
         self.create_navbar()
         self.create_status_bar()
-        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control,self.faculty_record)
         self.page_frame.pack()
             
     def create_navbar(self):
@@ -174,21 +175,21 @@ class Faculty_Dashboard:
         self.unselect_all_tabs()
         self.explore_tab.click()
         self.page_frame.pack_forget()
-        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Explore_page.Page(self.frame,self.sidebar_control,self.faculty_record)
         self.page_frame.pack()
 
     def open_bookcenter_tab(self,e):
         self.unselect_all_tabs()
         self.Book_center_tab.click()
         self.page_frame.pack_forget()
-        self.page_frame = Book_center_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Book_center_page.Page(self.frame,self.sidebar_control,self.faculty_record)
         self.page_frame.pack()
 
     def open_help_tab(self,e):
         self.unselect_all_tabs()
         self.Help_tab.click()
         self.page_frame.pack_forget()        
-        self.page_frame = Help_and_support_page.Page(self.frame,self.sidebar_control)
+        self.page_frame = Help_and_support_page.Page(self.frame,self.sidebar_control,self.faculty_record)
         self.page_frame.pack()
 
 # / tabs opening functions..................

@@ -1,1 +1,0 @@
-sidebar_frame = sidebar.SideBar(root) 

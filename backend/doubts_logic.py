@@ -26,6 +26,16 @@ def get_username_role(user_id):
         return (name,role)
     elif role.lower() == 'scholar':
         cur.execute("select first_name from scholars where scholar_id = %s",(user_id,))
+        name = cur.fetchall()[0][0]
+        return(name,role)
+    elif role.lower() == 'faculty':
+        cur.execute("select first_name from faculty where faculty_id = %s",(user_id,))
+        name = cur.fetchall()[0][0]
+        return (name,role)
+    elif role.lower() == 'librarian':
+        cur.execute("select first_name from librarian where lib_id = %s",(user_id,))
+        name = cur.fetchall()[0][0]
+        return (name,role)
 
 def answer_doubt(user_id,doubt_id,solution):
     cur.execute("insert into solutions values(%s,%s,%s)",(doubt_id,user_id,solution))

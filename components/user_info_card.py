@@ -82,7 +82,7 @@ class UserCard:
 
         elif self.role.lower() == "librarian":
             doubts_logic.cur.execute(
-                "select librarian_id,first_name,last_name,phone_no,DOB,gender,email from librarian where librarian_id = %s",
+                "select lib_id,first_name,last_name,phone_no,DOB,gender,email from librarian where lib_id = %s",
                 (self.user_id,),
             )
             self.data = doubts_logic.cur.fetchall()

@@ -8,8 +8,9 @@ from pages.Faculty.BookCenter import Donate_book
 from pages.Faculty.BookCenter import Request_book
 
 class Page:
-    def __init__(self,master,sidebar_control:sidebar.Sidebar_control):
+    def __init__(self,master,sidebar_control:sidebar.Sidebar_control,faculty_record):
         self.master = master
+        self.faculty_record = faculty_record
         self.current_tab = "Request"
         self.sidebar_control = sidebar_control
         self.frame = CTkFrame(self.master,

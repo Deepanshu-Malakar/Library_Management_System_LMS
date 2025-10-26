@@ -225,8 +225,17 @@ class Signup:
     
     # / Librarian role...............................................
         elif self.role.lower() == "faculty":
+            faculty_record = register_users.get_faculty(userid)
+            if len(faculty_record)<1:
+                messagebox.showerror("Error","Invalid username or password")
+                return
+            if password != faculty_record["password"]:
+                messagebox.showerror("Error","Invalid username or password")
+                return
+            messagebox.showinfo("Success",f"Login for {faculty_record['first name']}")
+            
             self.page_frame.pack_forget()
-            self.frame = Faculty_Dashboard.Faculty_Dashboard(self.master,username)
+            self.frame = Faculty_Dashboard.Faculty_Dashboard(self.master,faculty_record)
             self.frame.pack()
         elif self.role.lower() == "scholar":
             self.page_frame.pack_forget()

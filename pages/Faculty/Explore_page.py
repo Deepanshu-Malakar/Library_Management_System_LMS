@@ -12,8 +12,9 @@ from pages.Faculty.Explore import study_section
 
 
 class Page:
-    def __init__(self,master,sidebar_control:Explore_sidebar.Sidebar_control):
+    def __init__(self,master,sidebar_control:Explore_sidebar.Sidebar_control,faculty_record):
         self.current_tab = "Home"
+        self.faculty_record = faculty_record
         self.master = master
         self.sidebar_control = sidebar_control
         self.frame = CTkFrame(self.master,

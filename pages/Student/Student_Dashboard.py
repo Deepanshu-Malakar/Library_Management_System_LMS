@@ -2,6 +2,7 @@ from tkinter import *
 from customtkinter import *
 from PIL import Image
 import pywinstyles
+from components import user_info_card
 
 from components import sidebar_control_button
 from CTkXYFrame import * 
@@ -145,8 +146,12 @@ class Student_Dashboard:
 
     def notifications_click(self,e):
         self.notifications.click(master=self.master,text="Notifications")
+
     def profile_click(self,e):
         self.profile.click(master=self.master,text="Your profile")
+        self.profile.popup.geometry(f"270x270+{self.master.winfo_width()-380}+100")
+        user_card = user_info_card.UserCard(self.profile.popup,self.student_record["student id"])
+        user_card.grid(row=0,column=0,padx=0,pady=0)
     def settings_click(self,e):
         self.settings.click(master=self.master,text="Settings")
 
