@@ -8,8 +8,9 @@ from pages.Scholar.BookCenter import Donate_book
 from pages.Scholar.BookCenter import Request_book
 
 class Page:
-    def __init__(self,master,sidebar_control:sidebar.Sidebar_control):
+    def __init__(self,master,sidebar_control:sidebar.Sidebar_control,scholar_record):
         self.master = master
+        self.scholar_record = scholar_record
         self.current_tab = "Request"
         self.sidebar_control = sidebar_control
         self.frame = CTkFrame(self.master,
@@ -17,7 +18,7 @@ class Page:
                               corner_radius=0)
         self.create_sidebar()  
         self.apply_page_controls()
-        self.page_frame = Request_book.RequestBookPage(self.frame)
+        self.page_frame = Request_book.RequestBookPage(self.frame,self.scholar_record)
         self.page_frame.pack()
 
 
@@ -46,13 +47,13 @@ class Page:
 
     def open_request_book_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = Request_book.RequestBookPage(self.frame)
+        self.page_frame = Request_book.RequestBookPage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "Request"
 
     def open_donate_book_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = Donate_book.DonateBookPage(self.frame)
+        self.page_frame = Donate_book.DonateBookPage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "Donate"
 

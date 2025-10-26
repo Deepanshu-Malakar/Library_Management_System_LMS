@@ -3,7 +3,8 @@ from customtkinter import *
 from PIL import Image
 
 class LeaderboardPage:
-    def __init__(self,master):
+    def __init__(self,master,scholar_record):
+        self.scholar_record = scholar_record
         self.master = master
         self.frame = CTkFrame(self.master,
                               fg_color="#ffffff",

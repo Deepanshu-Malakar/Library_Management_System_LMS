@@ -12,8 +12,9 @@ from pages.Scholar.Explore import study_section
 
 
 class Page:
-    def __init__(self,master,sidebar_control:Explore_sidebar.Sidebar_control):
+    def __init__(self,master,sidebar_control:Explore_sidebar.Sidebar_control,scholar_record):
         self.current_tab = "Home"
+        self.scholar_record = scholar_record
         self.master = master
         self.sidebar_control = sidebar_control
         self.frame = CTkFrame(self.master,
@@ -21,7 +22,7 @@ class Page:
                               corner_radius=0)
         self.create_sidebar()
         self.apply_page_controls()
-        self.page_frame = home.HomePage(self.frame)
+        self.page_frame = home.HomePage(self.frame,self.scholar_record)
         self.page_frame.pack()
 
     # Working on sidebar..............................................    
@@ -51,31 +52,31 @@ class Page:
 
     def open_home_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = home.HomePage(self.frame)
+        self.page_frame = home.HomePage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "Home"
 
     def open_favourites_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = favourites.FavouritesPage(self.frame)
+        self.page_frame = favourites.FavouritesPage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "Favourites"
 
     def open_history_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = history.HistoryPage(self.frame)
+        self.page_frame = history.HistoryPage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "History"
 
     def open_study_section_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = study_section.StudySectionPage(self.frame)
+        self.page_frame = study_section.StudySectionPage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "Study section"
 
     def open_reserved_books_page(self,e):
         self.page_frame.pack_forget()
-        self.page_frame = reserved_books.ReservedBooksPage(self.frame)
+        self.page_frame = reserved_books.ReservedBooksPage(self.frame,self.scholar_record)
         self.page_frame.pack()
         self.current_tab = "Reserved Books"
     # / Page changing controls...........................................
