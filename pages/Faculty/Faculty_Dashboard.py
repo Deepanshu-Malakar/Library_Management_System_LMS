@@ -15,6 +15,8 @@ from pages.Faculty import Explore_page
 from pages.Faculty import Book_center_page
 from pages.Faculty import Help_and_support_page
 
+from backend import status_bar_logic
+
 class colors:
     def __init__(self):
         self.base_color = "#4153A3"
@@ -128,7 +130,11 @@ class Faculty_Dashboard:
         self.your_personal_lib_label.pack(side="left",padx=100,pady=2)
 
     def create_status_bar(self):
-        self.status_bar = status_bar.StatusBar(self.frame,self.username,0,0,0,0)
+        reserved_books = status_bar_logic.reserved_books(self.faculty_record["faculty id"])
+        issued_books = status_bar_logic.issued_books(self.faculty_record["faculty id"])
+        due_books = status_bar_logic.due_books(self.faculty_record["faculty id"])
+        fine = status_bar_logic.pending_fine(self.faculty_record["faculty id"])
+        self.status_bar = status_bar.StatusBar(self.frame,self.username,reserved_books,issued_books,fine,due_books)
         self.status_bar.pack()
 
 # profile notification and settings popup..............

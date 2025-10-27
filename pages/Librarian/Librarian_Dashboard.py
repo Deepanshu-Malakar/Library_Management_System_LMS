@@ -16,6 +16,8 @@ from pages.Librarian import user_management_page
 from pages.Librarian import reports_page
 from pages.Librarian import Help_and_support_page
 
+from backend import status_bar_logic
+
 
 
 
@@ -133,7 +135,11 @@ class Librarian_Dashboard:
         self.your_personal_lib_label.pack(side="left",padx=100,pady=2)
 
     def create_status_bar(self):
-        self.status_bar = status_bar.StatusBar(self.frame,self.username,0,0,0,0)
+        reserved_books = status_bar_logic.total_reserved_books()
+        issued_books = status_bar_logic.total_issued_books()
+        due_books = status_bar_logic.total_due_books()
+        fine = status_bar_logic.total_pending_fine()
+        self.status_bar = status_bar.StatusBar(self.frame,self.username,reserved_books,issued_books,fine,due_books)
         self.status_bar.pack()
 
 
