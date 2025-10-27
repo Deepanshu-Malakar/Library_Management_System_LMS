@@ -208,7 +208,7 @@ class LibrarianSignupApp(ctk.CTkFrame):
         self.gender_combo.set("Select Gender")
         self.gender_combo.grid(row=2, column=0, padx=30, pady=(40, 15), sticky="w")
         
-        self.dob = Form(self.form_frame, text="Date of Birth (DD/MM/YYYY):", is_dob=True)
+        self.dob = Form(self.form_frame, text="Date of Birth (YYYY/MM/DD):", is_dob=True)
         self.dob.grid(row=2, column=1, padx=30, pady=15, sticky="w") 
 
         # Row 3: Job Title (Left) and Shift Timing (Right)
