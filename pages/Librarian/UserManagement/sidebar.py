@@ -45,7 +45,7 @@ class SideBar:
                                                 img_active="resources/icons/suspend user dark.png",
                                                 img_inactive="resources/icons/suspend user light.png",
                                                 is_active=False)
-        self.suspended_users_btn.grid(row=3,column=0,padx=0,pady=0)
+        # self.suspended_users_btn.grid(row=3,column=0,padx=0,pady=0)
         self.suspended_users_btn.button.configure(width=self.button_width)
 
 
@@ -54,7 +54,7 @@ class SideBar:
                                                 img_active="resources/icons/blacklist user dark.png",
                                                 img_inactive="resources/icons/blacklist user light.png",
                                                 is_active=False)
-        self.blacklisted_users_btn.grid(row=4,column=0,padx=0,pady=10)
+        # self.blacklisted_users_btn.grid(row=4,column=0,padx=0,pady=10)
         self.blacklisted_users_btn.button.configure(width=self.button_width)
 
 
