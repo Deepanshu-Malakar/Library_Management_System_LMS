@@ -92,7 +92,7 @@ class StudySectionPage:
         self.frame.update_idletasks()
 
         # Generate AI response
-        prompt = f"You are a friendly professor explaining to a college student. Keep your response simple, clear, and slightly conversational. Question: {query}"
+        prompt = f"You are a friendly professor explaining to a college student. Keep your response simple, clear, and slightly conversational. Donot write long answers. Question: {query}"
         answer = ai.query(prompt)
 
         ai_label.configure(text=answer)
