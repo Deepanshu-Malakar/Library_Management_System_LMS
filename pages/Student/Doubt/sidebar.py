@@ -64,7 +64,7 @@ class SideBar:
                                                 img_active="resources/icons/leaderboard dark.png",
                                                 img_inactive="resources/icons/leaderboard light.png",
                                                 is_active=False)
-        self.leaderboard_btn.grid(row=5,column=0,padx=0,pady=0)
+        # self.leaderboard_btn.grid(row=5,column=0,padx=0,pady=0)
         self.leaderboard_btn.button.configure(width=self.button_width)
 
 

@@ -1,4 +1,6 @@
 import mysql.connector
+from backend import notifications_logic
+
 from tkinter import messagebox
 
 mydb = mysql.connector.connect(host = "localhost",
@@ -37,6 +39,8 @@ def reissue_book(user_id,title,author,edition):
     cur.execute("update issue_books set status = 'Reissued',return_date = DATE_ADD(return_date, INTERVAL %s DAY) where book_id = %s and status = 'Issued'",(reissue_period,book_id))
     cur.execute("update books set status = 'Reissued' where book_id = %s",(book_id,))
     messagebox.showinfo("Book Reissued","Book Reissued Successfully")
+    notifications_logic.send_notification(user_id,f"You reissued the book titled: {title}, author: {author}, edition: {edition}")
+    
     return True
     
     

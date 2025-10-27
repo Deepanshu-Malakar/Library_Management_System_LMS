@@ -8,6 +8,8 @@ from CTkXYFrame import *
 from components import navbar_butttons
 from components import navbar_tabs
 from components import status_bar
+from components import user_info_card
+from components import notification_bar
 
 
 from pages.Scholar import Explore_page
@@ -147,8 +149,12 @@ class Scholar_Dashboard:
 
     def notifications_click(self,e):
         self.notifications.click(master=self.master,text="Notifications")
+        self.notification_bar = notification_bar.Notification(self.notifications.popup,self.scholar_record["scholar id"])
     def profile_click(self,e):
         self.profile.click(master=self.master,text="Your profile")
+        self.profile.popup.geometry(f"270x270+{self.master.winfo_width()-380}+100")
+        user_card = user_info_card.UserCard(self.profile.popup,self.scholar_record["scholar id"])
+        user_card.grid(row=0,column=0,padx=0,pady=0)
     def settings_click(self,e):
         self.settings.click(master=self.master,text="Settings")
 

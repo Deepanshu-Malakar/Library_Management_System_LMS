@@ -1,4 +1,6 @@
 from backend import mysql_tables
+from backend import notifications_logic
+
 cur = mysql_tables.mydb.cursor()
 mydb = mysql_tables.mydb
 
@@ -6,6 +8,7 @@ def insert_user(user_id,email,role):
     cur.execute(""" 
         insert into users values(%s,%s,%s)""",(user_id,email,role))
     mydb.commit()
+    notifications_logic.send_notification(user_id,"Your account is created")
 
 def check_if_user_exist(user_id):
     cur.execute(f"select user_id from users where user_id = '{user_id}'")
@@ -30,6 +33,7 @@ create table if not exists students(
 def insert_student(student_id,first_name,last_name,phone,dob,gender,email,password,department):
     cur.execute("insert into students values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(student_id,first_name,last_name,phone,dob,gender,email,password,department))
     mydb.commit()
+    notifications_logic.send_notification(student_id,"Your account is created")
 
 def get_student(student_id):
     cur.execute(f"select * from students where student_id = '{student_id}'")
@@ -64,6 +68,7 @@ def get_student(student_id):
 def insert_scholar(scholar_id,first_name,last_name,phone,dob,gender,email,password,topic):
     cur.execute("insert into scholars values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(scholar_id,first_name,last_name,phone,dob,gender,email,password,topic))
     mydb.commit()
+    notifications_logic.send_notification(scholar_id,"Your account is created")
 
 def get_scholar(scholar_id):
     cur.execute(f"select * from scholars where scholar_id = '{scholar_id}'")
@@ -99,6 +104,7 @@ def get_scholar(scholar_id):
 def insert_faculty(faculty_id,first_name,last_name,phone,dob,gender,email,password,department):
     cur.execute("insert into faculty values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(faculty_id,first_name,last_name,phone,dob,gender,email,password,department))
     mydb.commit()
+    notifications_logic.send_notification(faculty_id,"Your account is created")
 
 def get_faculty(faculty_id):
     cur.execute(f"select * from faculty where faculty_id = '{faculty_id}'")

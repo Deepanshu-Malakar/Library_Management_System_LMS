@@ -1,5 +1,6 @@
 import mysql.connector
 from tkinter import messagebox
+from backend import notifications_logic
 
 mydb = mysql.connector.connect(host = "localhost",
                                user = "root",
@@ -38,6 +39,8 @@ def insert_issue_book(user_id,book_id):
     cur.execute(f"update books set available = 0,status = 'Issued' where book_id = {book_id}")
     mydb.commit()
     messagebox.showinfo("Success","Book Issued Successfully")
+    
+
 
 def user_already_has_book(user_id,title,author,edition):
     mydb.commit()
@@ -103,6 +106,7 @@ def issue_book(user_id,title,author,edition):
     if book_id == 0:
         return False
     insert_issue_book(user_id,book_id)
+    notifications_logic.send_notification(user_id,f"You Issued the book titled : {title}, author: {author}, edition {edition}")
     return True
 
 
@@ -197,4 +201,5 @@ def return_book(user_id,title,author,edition):
     book_id = book_id[0][0]
     remove_from_issued_books(user_id,book_id)
     messagebox.showinfo("Success","Book returned successfully")
+    notifications_logic.send_notification(user_id,f"You returned the book titled: {title}, author: {author}, edition {edition}")
     return True

@@ -1,4 +1,5 @@
 import mysql.connector
+from backend import notifications_logic
 
 mydb = mysql.connector.connect(host = "localhost",
                                user = "root",
@@ -16,6 +17,7 @@ def insert_doubt(user_id,doubt):
     doubt_id = get_doubt_id()
     cur.execute("insert into doubts values(%s,%s,%s)",(doubt_id,user_id,doubt))
     mydb.commit()
+    notifications_logic.send_notification(user_id,"You Doubt is added")
 
 def get_username_role(user_id):
     cur.execute("select role from users where user_id = %s",(user_id,))
@@ -40,6 +42,9 @@ def get_username_role(user_id):
 def answer_doubt(user_id,doubt_id,solution):
     cur.execute("insert into solutions values(%s,%s,%s)",(doubt_id,user_id,solution))
     mydb.commit()
+    cur.execute("select user_id from doubts where doubt_id = %s",(doubt_id,))
+    u = cur.fetchall()[0][0]
+    notifications_logic.send_notification(u,f"Your doubt with id {doubt_id} is solved by {user_id}")
 
 def get_all_doubts():
     cur.execute("select doubt_id,user_id,doubt from doubts")

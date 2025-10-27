@@ -1,4 +1,5 @@
 import mysql.connector
+from backend import notifications_logic
 
 mydb = mysql.connector.connect(host = "localhost",
                                user = "root",
@@ -135,6 +136,14 @@ def create_tables():
                     cover_img varchar(512),
                     description varchar(1024) 
                 )""")
+    
+    # Notifications Table.........................
+    cur.execute("""CREATE TABLE IF NOT EXISTS notifications(
+                    user_id VARCHAR(30),
+                    message TEXT,
+                    notification_datetime DATETIME DEFAULT NOW()
+                );
+                """)
     mydb.commit()
 
 
@@ -142,6 +151,13 @@ def create_tables():
 def insert_librarian(lib_id,first_name,last_name,ph_no,dob,gender,email,password):
     cur.execute("insert into librarian values(%s,%s,%s,%s,%s,%s,%s,%s)",(lib_id,first_name,last_name,ph_no,dob,gender,email,password))
     mydb.commit()
+    cur.execute("select user_id from users where role = 'Librarian'")
+    user_id = cur.fetchall()
+    if len(user_id) == 0:
+        return
+    else:
+        for i in user_id:
+            notifications_logic.send_notification(i[0],f"New librarian added named: {first_name} ID: {lib_id}")
 
 def display_librarian():
     cur.execute("select * from librarian")
@@ -171,6 +187,13 @@ def find_librarian(lib_id):
 def insert_book(book_id,title,author,edition,category,status,available,cover_img,description):
     cur.execute("insert into books values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(book_id,title,author,edition,category,status,available,cover_img,description))
     mydb.commit()
+    cur.execute("select user_id from users")
+    user_ids = cur.fetchall()
+    if len(user_ids) == 0:
+        return 
+    else:
+        for user_id in user_ids:
+            notifications_logic.send_notification(user_id[0],f"New book added title: {title}, author: {author}, edition: {edition}")
 
 def display_books():
     cur.execute("select * from books")

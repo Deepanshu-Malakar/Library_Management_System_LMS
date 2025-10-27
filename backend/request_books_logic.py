@@ -1,6 +1,7 @@
 import mysql.connector
 from backend import mysql_tables
 from tkinter import messagebox
+from backend import notifications_logic
 mydb = mysql.connector.connect(host = "localhost",
                                user = "root",
                                password = "1234")
@@ -37,6 +38,7 @@ def insert_request(user_id, title, author, edition, category, cover_img, descrip
         (user_id, title, author, edition, category, cover_img, description)
     )
     mydb.commit()
+    notifications_logic.send_notification(user_id,f"Your request for book {title} by {author} edition {edition} is added")
 
 def check_if_book_exists(title, author, edition):
     mysql_tables.cur.execute(
@@ -98,6 +100,12 @@ def add_book(title, author, edition, copies):
     mydb.commit()
 
     messagebox.showinfo("Success", "Books added successfully.")
+    cur.execute("select user_id from users")
+    user_ids = cur.fetchall()
+    if len(user_ids) == 0:
+        return
+    for i in user_ids:
+        notifications_logic.send_notification(i[0],f"Bood {title} by {author} edition {edition} is now added") 
 
 def get_all_requested_books():
     cur.execute("""

@@ -3,6 +3,7 @@ from customtkinter import *
 from PIL import Image
 import pywinstyles
 from components import user_info_card
+from components import notification_bar
 
 from components import sidebar_control_button
 from CTkXYFrame import * 
@@ -146,6 +147,7 @@ class Student_Dashboard:
 
     def notifications_click(self,e):
         self.notifications.click(master=self.master,text="Notifications")
+        self.notification_bar = notification_bar.Notification(self.notifications.popup,self.student_record["student id"])
 
     def profile_click(self,e):
         self.profile.click(master=self.master,text="Your profile")
