@@ -1,28 +1,24 @@
-# main_app.py
-
+from openai import OpenAI
 import os
-from dotenv import load_dotenv # Used to load the .env file
-from google import genai
+import dotenv
 
-# 1. Load the environment variables from the .env file
-# This makes GEMINI_API_KEY available to your script
-load_dotenv() 
+dotenv.load_dotenv()
 
-# 2. The client will automatically look for the GEMINI_API_KEY
-# environment variable that we just loaded.
+api = os.getenv("OPENAI_API_KEY")
 
 def query(prompt):
     try:
-        client = genai.Client()
+        client = OpenAI(api_key=api)
 
-        # 3. Use the client to make an API call
-        response = client.models.generate_content(
-            model="gemini-2.5-flash", 
-            contents=prompt
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
 
         
-        return response.text
+        return response.choices[0].message.content
 
     except Exception as e:
         return e

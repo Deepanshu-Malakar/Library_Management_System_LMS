@@ -26,10 +26,10 @@ class Notification:
         for msg, timestamp in self.notifications:
             formatted_time = timestamp.strftime("%d-%m-%Y %H:%M:%S")
 
-            frame = CTkFrame(self.master, corner_radius=5,border_width=1,fg_color="#f3f2f2")
-            frame.pack(fill="x", pady=5, padx=10)
+            frame = CTkFrame(self.master, corner_radius=0,border_width=1,fg_color="#DFF0FF",border_color="#A8CBFF")
+            frame.pack(fill="x", pady=0, padx=0)
 
-            CTkLabel(frame, text=formatted_time, font=("Arial", 11, "italic"), text_color="gray").pack(anchor="w", padx=10, pady=(5, 0))
+            CTkLabel(frame, text=formatted_time, font=("Arial", 11, "italic"), text_color="#456DAA").pack(anchor="w", padx=10, pady=(5, 0))
             CTkLabel(frame, text=msg, font=("Arial", 13), wraplength=250, justify="left").pack(anchor="w", padx=10, pady=5)
 
     def refresh_notification(self):

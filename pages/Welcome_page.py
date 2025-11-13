@@ -3,11 +3,16 @@ from tkinter import *
 from PIL import Image
 # from pages import _page
 from pages import Signin_page
+print("Loading 31%")
 # from pages import Student_Signup_Page
 from pages.Signup_Pages import Student_signup_page
+print("Loading 32%")
 from pages.Signup_Pages import faculty_signup_page
+print("Loading 33%")
 from pages.Signup_Pages import Librarian_signup_page
+print("Loading 34%")
 from pages.Signup_Pages import Scholar_signup_page
+print("Loading 35%")
 
 import pywinstyles
 set_appearance_mode("light")

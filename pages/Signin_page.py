@@ -3,12 +3,18 @@ from tkinter import messagebox
 from customtkinter import *
 from PIL import Image
 from pages.Student import Student_Dashboard
+print("Loading 21%")
 from pages.Librarian import Librarian_Dashboard
+print("Loading 22%")
 from pages.Scholar import Scholar_Dashboard
+print("Loading 23%")
 from pages.Faculty import Faculty_Dashboard
+print("Loading 24%")
 from tkinter import messagebox
 from backend import mysql_tables
+print("Loading 25%")
 from backend import register_users
+print("Loading 26%")
 
 
 class colors:

@@ -2,6 +2,7 @@ from tkinter import *
 from customtkinter import *
 from PIL import Image
 from AI import ai
+from AI import chat_bot
 
 class StudySectionPage:
     def __init__(self, master, student_record):
@@ -22,10 +23,19 @@ class StudySectionPage:
         )
         self.header.pack(pady=(20, 10))
 
-        # Chat area (scrollable)
-        self.chat_canvas = CTkCanvas(self.frame, bg="#f5f7fb", highlightthickness=0)
-        self.scrollbar = CTkScrollbar(self.frame, orientation="vertical", command=self.chat_canvas.yview)
+        # ----------------------- Chat Area -----------------------
+        self.chat_canvas = CTkCanvas(
+            self.frame, bg="#f5f7fb", highlightthickness=0
+        )
+        self.scrollbar = CTkScrollbar(
+            self.frame, orientation="vertical", command=self.chat_canvas.yview
+        )
+
         self.scrollable_frame = CTkFrame(self.chat_canvas, fg_color="#f5f7fb")
+
+        self.chat_window = self.chat_canvas.create_window(
+            (0, 0), window=self.scrollable_frame, anchor="nw"
+        )
 
         self.scrollable_frame.bind(
             "<Configure>",
@@ -34,13 +44,17 @@ class StudySectionPage:
             )
         )
 
-        self.chat_window = self.chat_canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
         self.chat_canvas.configure(yscrollcommand=self.scrollbar.set)
 
         self.chat_canvas.pack(side=LEFT, fill=BOTH, expand=True, padx=(20, 0), pady=(0, 10))
         self.scrollbar.pack(side=RIGHT, fill=Y, padx=(0, 20), pady=(0, 10))
 
-        # User input area
+        # Chat bubble width auto-adjust
+        self.chat_canvas.bind("<Configure>", self.update_wraplength)
+
+        self.current_wrap = 400  # default until resized
+
+        # ----------------------- Input Area -----------------------
         self.user_frame = CTkFrame(self.frame, fg_color="#ffffff", corner_radius=20)
         self.user_frame.pack(side=BOTTOM, fill=X, padx=20, pady=(5, 20))
 
@@ -69,42 +83,71 @@ class StudySectionPage:
         )
         self.send_button.grid(row=0, column=1, padx=10, pady=15)
 
+    # ------------------------------------------------------------
+    # Update bubble wrap length dynamically
+    # ------------------------------------------------------------
+    def update_wraplength(self, event):
+        width = self.chat_canvas.winfo_width()
+        self.current_wrap = int(width * 0.65)  # bubbles take only 65% of width
+
+    # ------------------------------------------------------------
+    # Send Query
+    # ------------------------------------------------------------
     def send_query(self):
         query = self.user_entry.get().strip()
         if not query:
             return
-        
-        # Display user message
-        user_message_frame = CTkFrame(self.scrollable_frame, fg_color="#d7ebff", corner_radius=15)
-        user_label = CTkLabel(user_message_frame, text=query, justify="right", wraplength=600, text_color="#000000")
-        user_label.pack(padx=10, pady=10)
-        user_message_frame.pack(anchor="e", padx=20, pady=5)
+
+        wrap = self.current_wrap
+
+        # USER BUBBLE (Right)
+        user_frame = CTkFrame(self.scrollable_frame, fg_color="#d7ebff", corner_radius=15)
+        user_label = CTkLabel(
+            user_frame,
+            text=query,
+            justify="left",
+            wraplength=wrap,
+            text_color="#000"
+        )
+        user_label.pack(padx=12, pady=10)
+        user_frame.pack(anchor="e", padx=20, pady=6)
 
         self.user_entry.delete(0, END)
 
-        # Display AI placeholder
-        ai_message_frame = CTkFrame(self.scrollable_frame, fg_color="#ffffff", corner_radius=15)
-        ai_label = CTkLabel(ai_message_frame, text="💭 Thinking...", justify="left", wraplength=600, text_color="#444444")
-        ai_label.pack(padx=10, pady=10)
-        ai_message_frame.pack(anchor="w", padx=20, pady=5)
+        # AI BUBBLE (Left)
+        ai_frame = CTkFrame(self.scrollable_frame, fg_color="#ffffff", corner_radius=15)
+        ai_label = CTkLabel(
+            ai_frame,
+            text="💭 Thinking...",
+            justify="left",
+            wraplength=wrap,
+            text_color="#444"
+        )
+        ai_label.pack(padx=12, pady=10)
+        ai_frame.pack(anchor="w", padx=20, pady=6)
 
-        # Update UI before fetching response
         self.frame.update_idletasks()
 
-        # Generate AI response
-        prompt = f"You are a friendly professor explaining to a college student. Keep your response simple, clear, and slightly conversational. Donot write long answers. Question: {query}"
-        answer = ai.query(prompt)
+        # AI response
+        prompt = (
+            f"You are a friendly professor explaining to a college student. "
+            f"Keep your response simple, clear, and slightly conversational. "
+            f"Do not write long answers. Question: {query}"
+        )
+        answer = chat_bot.query(prompt)
 
         ai_label.configure(text=answer)
 
         # Auto-scroll to bottom
-        self.chat_canvas.yview_moveto(1)
+        self.chat_canvas.after(50, lambda: self.chat_canvas.yview_moveto(1))
 
+    # ------------------------------------------------------------
     def pack(self, padx=0, pady=0):
         self.frame.pack(padx=padx, pady=pady, fill="both", expand=True)
 
     def pack_forget(self):
         self.frame.pack_forget()
+
 
 
 if __name__ == "__main__":
