@@ -65,4 +65,5 @@ def approve_due_book(user_id,title,author,edition):
     cur.execute("update books set available = 1,status = 'Available' where book_id = %s",(book_id,))
     mydb.commit()
     notifications_logic.send_notification(user_id,f"Your due book titled: {title}, author: {author}, edition: {edition} got approved")
+    messagebox.showinfo("success","book approved successfully")
     

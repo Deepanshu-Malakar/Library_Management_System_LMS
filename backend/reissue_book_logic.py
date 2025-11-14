@@ -50,7 +50,7 @@ def get_all_issued_books_of_user(user_id):
     cur.execute("select b.title,b.author,b.edition,b.category,b.cover_img,b.description,i.issue_date,i.return_date,i.status from books b,issue_books i where b.book_id = i.book_id and i.status != 'Returned' and i.user_id = %s",(user_id,))
     books = cur.fetchall()
     mydb.commit()
-    cur.execute("select b.title,b.author,b.edition,b.category,b.cover_img,b.description,i.issue_date,i.return_date,i.status from books b,issue_books i where b.book_id = i.book_id and i.status = 'Returned' and i.user_id = %s",(user_id,))
+    cur.execute("select b.title,b.author,b.edition,b.category,b.cover_img,b.description,i.issue_date,i.return_date,i.status from books b,issue_books i where b.book_id = i.book_id and i.status = 'Returned' and i.user_id = %s order by i.return_date desc",(user_id,))
     returned_books = cur.fetchall()
     for i in returned_books:
         books.append(i)

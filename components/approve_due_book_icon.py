@@ -76,7 +76,7 @@ class Book_icon:
 
         fine = issue_books_logic.pending_fine(self.borrower_id)
         self.return_btn = CTkButton(self.frame,
-                                       text=f"                Approve Fine Rs({fine})",
+                                       text=f"        Approve Fine Rs({fine})",
                                        font=("roboto",12,"bold"),
                                        width=180,
                                        height=40,
